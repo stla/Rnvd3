@@ -6,6 +6,10 @@ dropNulls <- function(x){
   Filter(Negate(is.null), x)
 }
 
+`%or%` <- function(x, y){
+  if(is.null(x)) y else x
+}
+
 isString <- function(x){
   is.character(x) && (length(x) == 1L) && !is.na(x)
 }
