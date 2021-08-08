@@ -10,9 +10,14 @@ rnvd3 <- function(
   width = NULL, height = NULL, elementId = NULL
 ) {
 
+  mbcData <- multiBarChartData(data, formula, by, palette)
+  axisTitles <- attr(mbcData, "axisTitles")
+
   # forward options using x
   x = list(
-    mbcData = multiBarChartData(data, formula, by, palette)
+    "mbcData"    = mbcData,
+    "xAxisTitle" = axisTitles[["x"]],
+    "yAxisTitle" = axisTitles[["y"]]
   )
 
   # create widget
@@ -29,7 +34,10 @@ rnvd3 <- function(
 #' @importFrom htmltools tags
 #' @noRd
 widget_html.rnvd3 <- function(id, style, class, ...){
-  tags$div(id = id, class = class, style = style, tags$svg())
+  tags$div(
+    id = id, class = class, style = style,
+    tags$svg(style = "height: inherit; width: inherit")
+  )
 }
 
 

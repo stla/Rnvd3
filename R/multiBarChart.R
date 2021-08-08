@@ -56,5 +56,7 @@ multiBarChartData <- function(data, formula, by, palette){
   ]
   names(DT2)[1L] <- "key"
   DT2[, `:=`(color = viridis(nrow(DT2), option = palette))]
-  as.character(toJSON(DT2))
+  out <- as.character(toJSON(DT2))
+  attr(out, "axisTitles") <- c("x" = category, "y" = y)
+  out
 }

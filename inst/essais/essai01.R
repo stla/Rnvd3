@@ -1,3 +1,5 @@
+library(Rnvd3)
+
 dat <- structure(list(x = c("Pr1", "Pr1", "Pr2", "Pr2", "Pr3", "Pr3"), bby = c(
   "Complete", "In progress", "Complete", "In progress",
   "Complete", "In progress"
