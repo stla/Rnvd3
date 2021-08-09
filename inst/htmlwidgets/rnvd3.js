@@ -22,20 +22,22 @@ HTMLWidgets.widget({
             .y(function (d) {
               return d.value;
             })
-            .duration(1300)
-            .margin({ bottom: 100, left: 70 })
-            .rotateLabels(0)
-            .groupSpacing(0.1);
+            .duration(x.duration)
+            .margin(x.margins)
+            .rotateLabels(x.rotateLabels)
+            .groupSpacing(x.groupSpacing);
 
           chart.reduceXTicks(false).staggerLabels(false);
 
-          chart.xAxis.axisLabel(x.xAxisTitle).axisLabelDistance(35);
+          chart.xAxis
+            .axisLabel(x.xAxisTitle)
+            .axisLabelDistance(x.xAxisLabelDistance);
 
           chart.yAxis
             .axisLabel(x.yAxisTitle)
-            .axisLabelDistance(-5)
-            .showMaxMin(false)
-            .tickFormat(d3.format("d"));
+            .axisLabelDistance(x.yAxisLabelDistance)
+            .showMaxMin(x.yAxisShowMaxMin)
+            .tickFormat(d3.format(x.yAxisTickFormat));
 
           d3.select(el.firstElementChild).datum(Data).call(chart);
 
