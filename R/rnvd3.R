@@ -15,16 +15,23 @@
 #'   taken from the \code{formula} argument
 #' @param margins a named list defining the margins, with names \code{"t"},
 #'   \code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
-#'   and "left" respectively
+#'   and "left" respectively; you can specify only certain margins in the list
+#'   to change just those parts
 #' @param duration duration of the transition, a number of milliseconds
 #' @param rotateLabels a number, the angle of rotation of the labels of the
 #'   x-axis (in degrees)
-#' @param groupSpacing
+#' @param groupSpacing a number, controls the distance between groups of bars
 #' @param xAxisLabelDistance
 #' @param yAxisLabelDistance
 #' @param yAxisShowMaxMin Boolean, whether to show the min and the max on
 #'   the y-axis
 #' @param yAxisTickFormat
+#' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
+#'   instead of the left
+#' @param staggerLabels Boolean, whether to make the x-labels stagger at
+#'   different distances from the axis so they're less likely to overlap
+#' @param wrapLabels Boolean, whether to split long x-labels by new lines in
+#'   order to prevent overlapping
 #' @param width
 #' @param height
 #' @param elementId
@@ -54,6 +61,9 @@ multiBarChart <- function(
   yAxisLabelDistance = -5,
   yAxisShowMaxMin = FALSE,
   yAxisTickFormat = "d",
+  rightAlignYaxis = FALSE,
+  staggerLabels = FALSE,
+  wrapLabels = FALSE,
 
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -68,6 +78,9 @@ multiBarChart <- function(
   stopifnot(isNumber(yAxisLabelDistance))
   stopifnot(isBoolean(yAxisShowMaxMin))
   stopifnot(isString(yAxisTickFormat))
+  stopifnot(isBoolean(rightAlignYaxis))
+  stopifnot(isBoolean(staggerLabels))
+  stopifnot(isBoolean(wrapLabels))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -92,7 +105,10 @@ multiBarChart <- function(
     "xAxisLabelDistance" = xAxisLabelDistance,
     "yAxisLabelDistance" = yAxisLabelDistance,
     "yAxisShowMaxMin"    = yAxisShowMaxMin,
-    "yAxisTickFormat"    = yAxisTickFormat
+    "yAxisTickFormat"    = yAxisTickFormat,
+    "rightAlignYaxis"    = rightAlignYaxis,
+    "staggerLabels"      = staggerLabels,
+    "wrapLabels"         = wrapLabels
   )
 
   # create widget

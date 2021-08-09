@@ -19,6 +19,9 @@ multiBarChart(
   yAxisLabelDistance = -5,
   yAxisShowMaxMin = FALSE,
   yAxisTickFormat = "d",
+  rightAlignYaxis = FALSE,
+  staggerLabels = FALSE,
+  wrapLabels = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -44,15 +47,27 @@ taken from the \code{formula} argument}
 
 \item{margins}{a named list defining the margins, with names \code{"t"},
 \code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
-and "left" respectively}
+and "left" respectively; you can specify only certain margins in the list
+to change just those parts}
 
 \item{duration}{duration of the transition, a number of milliseconds}
 
 \item{rotateLabels}{a number, the angle of rotation of the labels of the
 x-axis (in degrees)}
 
+\item{groupSpacing}{a number, controls the distance between groups of bars}
+
 \item{yAxisShowMaxMin}{Boolean, whether to show the min and the max on
 the y-axis}
+
+\item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
+instead of the left}
+
+\item{staggerLabels}{Boolean, whether to make the x-labels stagger at
+different distances from the axis so they're less likely to overlap}
+
+\item{wrapLabels}{Boolean, whether to split long x-labels by new lines in
+order to prevent overlapping}
 
 \item{elementId}{}
 }

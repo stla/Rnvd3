@@ -15,11 +15,21 @@ check_multiBarChartData <- function(dat, category, by){
 #' @import data.table
 #' @noRd
 multiBarChartData <- function(data, formula, by, palette){
-  stopifnot(isString(palette))
-  palette <- match.arg(
-    palette,
-    c("magma", "inferno", "plasma", "viridis", "cividis", "rocket", "mako", "turbo")
-  )
+  viridisPalette <- FALSE
+  if(isString(palette)){
+    palette <- match.arg(
+      palette,
+      c(
+        "magma", "inferno", "plasma", "viridis",
+        "cividis", "rocket", "mako", "turbo"
+      )
+    )
+    viridisPalette <- TRUE
+  }else if(is.character(palette)){
+    colors <- vapply(palette, validateColor, character(1L))
+  }else if(!is.function(palette)){
+    stop("Invalide 'palette' argument.", call. = FALSE)
+  }
   stopifnot(is.data.frame(data))
   stopifnot(is_formula(formula))
   stopifnot(isString(by))
@@ -55,7 +65,34 @@ multiBarChartData <- function(data, formula, by, palette){
     by = by
   ]
   names(DT2)[1L] <- "key"
-  DT2[, `:=`(color = viridis(nrow(DT2), option = palette))]
+  n <- nrow(DT2)
+  if(viridisPalette){
+    colors <- viridis(nrow(DT2), option = palette)
+  }else if(is.character(palette)){
+    if(length(colors) != n){
+      stop(
+        sprintf(
+          "Invalid number of colors: %d given, %d expected.",
+          length(colors), n
+        ),
+        call. = FALSE
+      )
+    }
+  }else{
+    colors <- try(palette(n))
+    if(
+      inherits(colors, "try-error") ||
+      !is.character(colors) ||
+      length(colors) != n
+    ){
+      stop(
+        "Your 'palette' function is invalid.", call. = FALSE
+      )
+    }else{
+      colors <- vapply(colors, validateColor, character(1L))
+    }
+  }
+  DT2[, `:=`(color = colors)]
   out <- as.character(toJSON(DT2))
   attr(out, "axisTitles") <- c("x" = category, "y" = y)
   out

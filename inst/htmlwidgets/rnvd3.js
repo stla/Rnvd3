@@ -26,8 +26,10 @@ HTMLWidgets.widget({
             .margin(x.margins)
             .rotateLabels(x.rotateLabels)
             .groupSpacing(x.groupSpacing);
-
-          chart.reduceXTicks(false).staggerLabels(false);
+            .rightAlignYaxis(x.rightAlignYaxis)
+            .reduceXTicks(false)
+            .staggerLabels(x.staggerLabels)
+            .wrapLabels(x.wrapLabels);
 
           chart.xAxis
             .axisLabel(x.xAxisTitle)

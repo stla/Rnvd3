@@ -25,3 +25,26 @@ isNumber <- function(x){
 isNamedList <- function(x){
   is.list(x) && !is.null(names(x)) && all(names(x) != "")
 }
+
+#' @importFrom grDevices col2rgb
+#' @noRd
+color2hex <- function(color){
+  RGB <- col2rgb(color)[,1L]
+  rgb(RGB["red"], RGB["green"], RGB["blue"], maxColorValue = 255)
+}
+
+#' @importFrom htmltools parseCssColors
+#' @noRd
+validateColor <- function(color){
+  stopifnot(isString(color))
+  cssColor <- try(parseCssColors(color), silent = TRUE)
+  if(!inherits(cssColor, "try-error")){
+    return(cssColor)
+  }
+  Rcolor <- try(color2hex(color), silent = TRUE)
+  if(inherits(Rcolor, "try-error")){
+    stop(sprintf("Invalid color '%s'.", color), call. = FALSE)
+  }else{
+    Rcolor
+  }
+}

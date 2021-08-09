@@ -15,7 +15,8 @@ Imports:
   lazyeval,
   viridisLite,
   htmltools,
-  jsonlite
+  jsonlite,
+  grDevices
 Suggests:
   reshape2
 RoxygenNote: 7.1.1
