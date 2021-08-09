@@ -2,7 +2,7 @@
 % Please edit documentation in R/rnvd3.R
 \name{multiBarChart}
 \alias{multiBarChart}
-\title{xxx}
+\title{Multibar chart}
 \usage{
 multiBarChart(
   data,
@@ -15,13 +15,16 @@ multiBarChart(
   duration = 1300,
   rotateLabels = 0,
   groupSpacing = 0.1,
-  xAxisLabelDistance = 35,
-  yAxisLabelDistance = -5,
+  xAxisTitleDistance = 35,
+  yAxisTitleDistance = -5,
   yAxisShowMaxMin = FALSE,
   yAxisTickFormat = "d",
+  xLabelsFontSize = "1rem",
+  yLabelsFontSize = "1rem",
   rightAlignYaxis = FALSE,
   staggerLabels = FALSE,
   wrapLabels = FALSE,
+  useInteractiveGuideline = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -36,7 +39,7 @@ multiBarChart(
 \item{by}{string, the "by" variable; must be a column name of \code{data}}
 
 \item{palette}{this can be either the name of a viridis color palette, e.g.
-\cod{"viridis"}, \code{"cividis"} or \code{"turbo"}
+\code{"viridis"}, \code{"cividis"} or \code{"turbo"}
 (see \code{\link[viridisLite]{viridis}}), or a vector of colors, or a
 function that takes an integer argument (the required number of colors)
 and returns a character vector of colors (e.g. you can use
@@ -60,8 +63,22 @@ x-axis (in degrees)}
 
 \item{groupSpacing}{a number, controls the distance between groups of bars}
 
+\item{xAxisTitleDistance}{a number, controls the distance between the
+x-axis and its title}
+
+\item{yAxisTitleDistance}{a number, controls the distance between the
+y-axis and its title}
+
 \item{yAxisShowMaxMin}{Boolean, whether to show the min and the max on
 the y-axis}
+
+\item{yAxisTickFormat}{a d3 formatting string XXXXXXXXXXXXXXXX}
+
+\item{xLabelsFontSize}{a CSS measure, the font size of the labels on the
+x-axis}
+
+\item{yLabelsFontSize}{a CSS measure, the font size of the labels on the
+y-axis}
 
 \item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
 instead of the left}
@@ -72,13 +89,21 @@ different distances from the axis so they're less likely to overlap}
 \item{wrapLabels}{Boolean, whether to split long x-labels by new lines in
 order to prevent overlapping}
 
-\item{elementId}{}
+\item{useInteractiveGuideline}{Boolean, other kind of tooltips: sets the
+chart to use a guideline and floating tooltip instead of requiring the
+user to hover over specific hotspots}
+
+\item{width}{width of the chart container, must be a valid CSS measure}
+
+\item{height}{height of the chart container, must be a valid CSS measure}
+
+\item{elementId}{an id for the chart container; commonly useless}
 }
 \value{
 A htmlwidget displaying a grouped/stacked bar chart.
 }
 \description{
-xxx
+HTMLwidget displaying a multibar chart.
 }
 \examples{
 library(Rnvd3)

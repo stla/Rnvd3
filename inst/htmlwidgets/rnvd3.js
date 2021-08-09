@@ -29,15 +29,19 @@ HTMLWidgets.widget({
             .rightAlignYAxis(x.rightAlignYaxis)
             .reduceXTicks(false)
             .staggerLabels(x.staggerLabels)
-            .wrapLabels(x.wrapLabels);
+            .wrapLabels(x.wrapLabels)
+            .useInteractiveGuideline(x.useInteractiveGuideline)
+            .clipEdge(false); // ?
 
           chart.xAxis
             .axisLabel(x.xAxisTitle)
-            .axisLabelDistance(x.xAxisLabelDistance);
+            .axisLabelDistance(x.xAxisTitleDistance)
+            .fontSize(x.xLabelsFontSize);
 
           chart.yAxis
             .axisLabel(x.yAxisTitle)
-            .axisLabelDistance(x.yAxisLabelDistance)
+            .axisLabelDistance(x.yAxisTitleDistance)
+            .fontSize(x.yLabelsFontSize)
             .showMaxMin(x.yAxisShowMaxMin)
             .tickFormat(d3.format(x.yAxisTickFormat));
 
