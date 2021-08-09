@@ -35,9 +35,12 @@ multiBarChart(
 
 \item{by}{string, the "by" variable; must be a column name of \code{data}}
 
-\item{palette}{the name of a viridis color palette, e.g. \cod{"viridis"},
-\code{"cividis"} or \code{"turbo"};
-see \code{\link[viridisLite]{viridis}}}
+\item{palette}{this can be either the name of a viridis color palette, e.g.
+\cod{"viridis"}, \code{"cividis"} or \code{"turbo"}
+(see \code{\link[viridisLite]{viridis}}), or a vector of colors, or a
+function that takes an integer argument (the required number of colors)
+and returns a character vector of colors (e.g. you can use
+\code{\link[grDevices]{colorRampPalette}})}
 
 \item{xAxisTitle}{a title for the x-axis; if \code{NULL}, the title is
 taken from the \code{formula} argument}

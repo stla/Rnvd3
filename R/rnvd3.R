@@ -35,9 +35,9 @@
 #'   different distances from the axis so they're less likely to overlap
 #' @param wrapLabels Boolean, whether to split long x-labels by new lines in
 #'   order to prevent overlapping
-#' @param width
-#' @param height
-#' @param elementId
+#' @param width width of the chart container, must be a valid CSS measure
+#' @param height height of the chart container, must be a valid CSS measure
+#' @param elementId an id for the chart container; commonly useless
 #'
 #' @return A htmlwidget displaying a grouped/stacked bar chart.
 #'

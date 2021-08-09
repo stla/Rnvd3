@@ -25,8 +25,8 @@ HTMLWidgets.widget({
             .duration(x.duration)
             .margin(x.margins)
             .rotateLabels(x.rotateLabels)
-            .groupSpacing(x.groupSpacing);
-            .rightAlignYaxis(x.rightAlignYaxis)
+            .groupSpacing(x.groupSpacing)
+            .rightAlignYAxis(x.rightAlignYaxis)
             .reduceXTicks(false)
             .staggerLabels(x.staggerLabels)
             .wrapLabels(x.wrapLabels);
