@@ -51,6 +51,9 @@
 #'
 #' @return A htmlwidget displaying a grouped/stacked bar chart.
 #'
+#' @note In Shiny, you can style the axis titles with the help of CSS; see the
+#'   \link[=rnvd3Output]{shiny example}.
+#'
 #' @import htmlwidgets
 #' @export
 #'

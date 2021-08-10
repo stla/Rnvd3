@@ -106,6 +106,10 @@ A htmlwidget displaying a grouped/stacked bar chart.
 \description{
 HTMLwidget displaying a multibar chart.
 }
+\note{
+In Shiny, you can style the axis titles with the help of CSS; see the
+  \link[=rnvd3Output]{shiny example}.
+}
 \examples{
 library(Rnvd3)
 dat <- reshape2::melt(
