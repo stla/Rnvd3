@@ -72,7 +72,8 @@ y-axis and its title}
 \item{yAxisShowMaxMin}{Boolean, whether to show the min and the max on
 the y-axis}
 
-\item{yAxisTickFormat}{a d3 formatting string XXXXXXXXXXXXXXXX}
+\item{yAxisTickFormat}{a d3 formatting string for the y-axis; see
+\href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}}
 
 \item{xLabelsFontSize}{a CSS measure, the font size of the labels on the
 x-axis}

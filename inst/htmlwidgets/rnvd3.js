@@ -33,6 +33,10 @@ HTMLWidgets.widget({
             .useInteractiveGuideline(x.useInteractiveGuideline)
             .clipEdge(false); // ?
 
+//          if(x.title){
+//            chart.title(x.title).titleOffset(x.titleOffset);
+//          }
+
           chart.xAxis
             .axisLabel(x.xAxisTitle)
             .axisLabelDistance(x.xAxisTitleDistance)

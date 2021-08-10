@@ -30,7 +30,8 @@
 #'   y-axis and its title
 #' @param yAxisShowMaxMin Boolean, whether to show the min and the max on
 #'   the y-axis
-#' @param yAxisTickFormat a d3 formatting string XXXXXXXXXXXXXXXX
+#' @param yAxisTickFormat a d3 formatting string for the y-axis; see
+#'   \href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}
 #' @param xLabelsFontSize a CSS measure, the font size of the labels on the
 #'   x-axis
 #' @param yLabelsFontSize a CSS measure, the font size of the labels on the
@@ -63,6 +64,8 @@ multiBarChart <- function(
   formula,
   by,
   palette = "viridis",
+  # title = NULL,
+  # titleOffset = 0,
   xAxisTitle = NULL,
   yAxisTitle = NULL,
   margins = list(b = 100, l = 70),
@@ -82,6 +85,8 @@ multiBarChart <- function(
 
   width = NULL, height = NULL, elementId = NULL
 ) {
+  # stopifnot(is.null(title) || isString(title))
+  # stopifnot(isNumber(titleOffset))
   stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
   stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
   stopifnot(isNamedList(margins))
@@ -112,6 +117,8 @@ multiBarChart <- function(
   # forward options using x
   x = list(
     "mbcData"                 = mbcData,
+    # "title"                   = title,
+    # "titleOffset"             = titleOffset,
     "xAxisTitle"              = xAxisTitle %or% axisTitles[["x"]],
     "yAxisTitle"              = yAxisTitle %or% axisTitles[["y"]],
     "margins"                 = margins,
