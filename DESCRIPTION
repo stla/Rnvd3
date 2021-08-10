@@ -19,5 +19,6 @@ Imports:
   jsonlite,
   grDevices
 Suggests:
-  reshape2
+  reshape2,
+  shiny
 RoxygenNote: 7.1.1
