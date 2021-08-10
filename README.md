@@ -2,4 +2,4 @@
 
 So far, only the multibar chart is available.
 
-![](https://raw.githubusercontent.com/stla/shinyToastify/main/inst/screenshots/multibarchart.gif)
+![](https://raw.githubusercontent.com/stla/Rnvd3/main/inst/screenshots/multibarchart.gif)
