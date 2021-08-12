@@ -5,13 +5,11 @@ HTMLWidgets.widget({
 
   factory: function (el, width, height) {
     // TODO: define shared variables for this instance
-    console.log("el", el);
 
     return {
       renderValue: function (x) {
-        // TODO: code to render the widget, e.g.
+
         var Data = JSON.parse(x.mbcData);
-        console.log("Data", Data);
 
         nv.addGraph(function () {
           var chart = nv.models
@@ -32,7 +30,6 @@ HTMLWidgets.widget({
             .wrapLabels(x.wrapLabels)
             .useInteractiveGuideline(x.useInteractiveGuideline)
             .clipEdge(false); // ?
-
 //          if(x.title){
 //            chart.title(x.title).titleOffset(x.titleOffset);
 //          }
