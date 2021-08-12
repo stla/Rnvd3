@@ -172,7 +172,57 @@ multiBarChart <- function(
   )
 }
 
+#' @title Horizontal multibar chart
+#'
+#' @description HTMLwidget displaying a horizontal multibar chart.
+#'
+#' @param data dataframe containing the data used for the chart
+#' @param formula a two-sided formula like \code{x ~ y}, where \code{"x"} and
+#'   \code{"y"} are two column names of \code{data}
+#' @param by string, the "by" variable; must be a column name of \code{data}
+#' @param palette this can be either the name of a viridis color palette, e.g.
+#'   \code{"viridis"}, \code{"cividis"} or \code{"turbo"}
+#'   (see \code{\link[viridisLite]{viridis}}), or a vector of colors, or a
+#'   function that takes an integer argument (the required number of colors)
+#'   and returns a character vector of colors (e.g. you can use
+#'   \code{\link[grDevices]{colorRampPalette}})
+#' @param xAxisTitle a title for the x-axis; if \code{NULL}, the title is
+#'   taken from the \code{formula} argument
+#' @param yAxisTitle a title for the y-axis; if \code{NULL}, the title is
+#'   taken from the \code{formula} argument
+#' @param margins a named list defining the margins, with names \code{"t"},
+#'   \code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
+#'   and "left" respectively; you can specify only certain margins in the list
+#'   to change just those parts
+#' @param duration duration of the transition, a number of milliseconds
+#' @param groupSpacing a number, controls the distance between groups of bars
+#' @param xAxisTitleDistance a number, controls the distance between the
+#'   x-axis and its title
+#' @param yAxisTitleDistance a number, controls the distance between the
+#'   y-axis and its title
+#' @param xAxisShowMaxMin Boolean, whether to show the min and the max on
+#'   the y-axis
+#' @param xAxisTickFormat a d3 formatting string for the y-axis; see
+#'   \href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}
+#' @param xLabelsFontSize a CSS measure, the font size of the labels on the
+#'   x-axis
+#' @param yLabelsFontSize a CSS measure, the font size of the labels on the
+#'   y-axis
+#' @param showValues Boolean, whether to show the values next to the bars
+#' @param width width of the chart container, must be a valid CSS measure
+#' @param height height of the chart container, must be a valid CSS measure
+#' @param elementId an id for the chart container; commonly useless
+#'
+#' @return A htmlwidget displaying a grouped/stacked bar chart.
+#'
+#' @import htmlwidgets
 #' @export
+#'
+#' @examples library(Rnvd3)
+#' dat <- reshape2::melt(
+#'   apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
+#' )
+#' hMultiBarChart(dat, Count ~ Eye, by = "Hair")
 hMultiBarChart <- function(
   data,
   formula,
