@@ -139,6 +139,7 @@ multiBarChart <- function(
 
   # forward options using x
   x = list(
+    "chart"                   = "multibarchart",
     "mbcData"                 = mbcData,
     # "title"                   = title,
     # "titleOffset"             = titleOffset,
@@ -170,6 +171,79 @@ multiBarChart <- function(
     elementId = elementId
   )
 }
+
+#' @export
+horizontalMultiBarChart <- function(
+  data,
+  formula,
+  by,
+  palette = "viridis",
+  xAxisTitle = NULL,
+  yAxisTitle = NULL,
+  margins = list(b = 100, l = 100),
+  duration = 1300,
+  groupSpacing = 0.1,
+  xAxisTitleDistance = 35,
+  yAxisTitleDistance = -5,
+  xAxisShowMaxMin = FALSE,
+  xAxisTickFormat = "d",
+  xLabelsFontSize = "1rem",
+  yLabelsFontSize = "1rem",
+
+  width = NULL, height = NULL, elementId = NULL
+) {
+  stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
+  stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
+  stopifnot(isNamedList(margins))
+  stopifnot(all(names(margins) %in% c("t", "r", "b", "l")))
+  stopifnot(isNumber(duration))
+  stopifnot(isNumber(groupSpacing))
+  stopifnot(isNumber(xAxisTitleDistance))
+  stopifnot(isNumber(yAxisTitleDistance))
+  stopifnot(isBoolean(xAxisShowMaxMin))
+  stopifnot(isString(xAxisTickFormat))
+
+  mbcData <- multiBarChartData(data, formula, by, palette)
+  axisTitles <- attr(mbcData, "axisTitles")
+  margins <- dropNulls(
+    list(
+      "top"    = margins[["t"]],
+      "right"  = margins[["r"]],
+      "bottom" = margins[["b"]],
+      "left"   = margins[["l"]]
+    )
+  )
+
+  # forward options using x
+  x = list(
+    "chart"                   = "horizontalmultibarchart",
+    "mbcData"                 = mbcData,
+    # "title"                   = title,
+    # "titleOffset"             = titleOffset,
+    "xAxisTitle"              = xAxisTitle %or% axisTitles[["x"]],
+    "yAxisTitle"              = yAxisTitle %or% axisTitles[["y"]],
+    "margins"                 = margins,
+    "duration"                = duration,
+    "groupSpacing"            = groupSpacing,
+    "xAxisTitleDistance"      = xAxisTitleDistance,
+    "yAxisTitleDistance"      = yAxisTitleDistance,
+    "xAxisShowMaxMin"         = xAxisShowMaxMin,
+    "xAxisTickFormat"         = xAxisTickFormat,
+    "xLabelsFontSize"         = xLabelsFontSize,
+    "yLabelsFontSize"         = yLabelsFontSize
+  )
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = "rnvd3",
+    x,
+    width = width,
+    height = height,
+    package = "Rnvd3",
+    elementId = elementId
+  )
+}
+
 
 #' @importFrom htmltools tags
 #' @noRd
