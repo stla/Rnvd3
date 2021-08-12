@@ -81,14 +81,14 @@ HTMLWidgets.widget({
 
             chart.xAxis
               .axisLabel(x.xAxisTitle)
-              .axisLabelDistance(x.xAxisTitleDistance)
-              .fontSize(x.xLabelsFontSize);
+              .axisLabelDistance(x.yAxisTitleDistance)
+              .fontSize(x.yLabelsFontSize);
 
 
             chart.yAxis
               .axisLabel(x.yAxisTitle)
-              .axisLabelDistance(x.yAxisTitleDistance)
-              .fontSize(x.yLabelsFontSize)
+              .axisLabelDistance(x.xAxisTitleDistance)
+              .fontSize(x.xLabelsFontSize)
               .showMaxMin(x.xAxisShowMaxMin)
               .tickFormat(d3.format(x.xAxisTickFormat));
 

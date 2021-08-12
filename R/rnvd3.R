@@ -173,7 +173,7 @@ multiBarChart <- function(
 }
 
 #' @export
-horizontalMultiBarChart <- function(
+hMultiBarChart <- function(
   data,
   formula,
   by,
@@ -183,12 +183,13 @@ horizontalMultiBarChart <- function(
   margins = list(b = 100, l = 100),
   duration = 1300,
   groupSpacing = 0.1,
-  xAxisTitleDistance = 35,
-  yAxisTitleDistance = -5,
+  xAxisTitleDistance = -5,
+  yAxisTitleDistance = 35,
   xAxisShowMaxMin = FALSE,
   xAxisTickFormat = "d",
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
+  showValues = FALSE,
 
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -202,6 +203,7 @@ horizontalMultiBarChart <- function(
   stopifnot(isNumber(yAxisTitleDistance))
   stopifnot(isBoolean(xAxisShowMaxMin))
   stopifnot(isString(xAxisTickFormat))
+  stopifnot(isBoolean(showValues))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -218,10 +220,8 @@ horizontalMultiBarChart <- function(
   x = list(
     "chart"                   = "horizontalmultibarchart",
     "mbcData"                 = mbcData,
-    # "title"                   = title,
-    # "titleOffset"             = titleOffset,
-    "xAxisTitle"              = xAxisTitle %or% axisTitles[["x"]],
-    "yAxisTitle"              = yAxisTitle %or% axisTitles[["y"]],
+    "xAxisTitle"              = yAxisTitle %or% axisTitles[["x"]],
+    "yAxisTitle"              = xAxisTitle %or% axisTitles[["y"]],
     "margins"                 = margins,
     "duration"                = duration,
     "groupSpacing"            = groupSpacing,
@@ -230,7 +230,8 @@ horizontalMultiBarChart <- function(
     "xAxisShowMaxMin"         = xAxisShowMaxMin,
     "xAxisTickFormat"         = xAxisTickFormat,
     "xLabelsFontSize"         = xLabelsFontSize,
-    "yLabelsFontSize"         = yLabelsFontSize
+    "yLabelsFontSize"         = yLabelsFontSize,
+    "showValues"              = showValues
   )
 
   # create widget
