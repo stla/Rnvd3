@@ -295,6 +295,9 @@ hMultiBarChart <- function(
   )
 }
 
+lineChart <- function(data){
+
+}
 
 #' @importFrom htmltools tags
 #' @noRd

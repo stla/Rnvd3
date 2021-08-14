@@ -26,6 +26,10 @@ isNamedList <- function(x){
   is.list(x) && !is.null(names(x)) && all(names(x) != "")
 }
 
+isUnnamedList <- function(x){
+  is.list(x) && is.null(names(x))
+}
+
 #' @importFrom grDevices col2rgb rgb
 #' @noRd
 color2hex <- function(color){
