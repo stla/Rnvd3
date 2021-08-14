@@ -138,9 +138,9 @@ multiBarChart <- function(
   )
 
   # forward options using x
-  x = list(
+  x <- list(
     "chart"                   = "multibarchart",
-    "mbcData"                 = mbcData,
+    "Data"                    = mbcData,
     # "title"                   = title,
     # "titleOffset"             = titleOffset,
     "xAxisTitle"              = xAxisTitle %or% axisTitles[["x"]],
@@ -267,9 +267,9 @@ hMultiBarChart <- function(
   )
 
   # forward options using x
-  x = list(
+  x <- list(
     "chart"                   = "horizontalmultibarchart",
-    "mbcData"                 = mbcData,
+    "Data"                    = mbcData,
     "xAxisTitle"              = yAxisTitle %or% axisTitles[["x"]],
     "yAxisTitle"              = xAxisTitle %or% axisTitles[["y"]],
     "margins"                 = margins,
@@ -295,7 +295,38 @@ hMultiBarChart <- function(
   )
 }
 
-lineChart <- function(data){
+#' Title
+#'
+#' @param data
+#' @param width
+#' @param height
+#' @param elementId
+#'
+#' @return
+#' @export
+#'
+#' @examples
+lineChart <- function(
+  data,
+  width = NULL, height = NULL, elementId = NULL
+){
+  lcData <- makeLineChartData(data)
+
+  # forward options using x
+  x <- list(
+    "chart"                   = "linechart",
+    "Data"                 = lcData
+  )
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = "rnvd3",
+    x,
+    width = width,
+    height = height,
+    package = "Rnvd3",
+    elementId = elementId
+  )
 
 }
 
