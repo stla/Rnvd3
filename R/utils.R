@@ -26,7 +26,7 @@ isNamedList <- function(x){
   is.list(x) && !is.null(names(x)) && all(names(x) != "")
 }
 
-#' @importFrom grDevices col2rgb
+#' @importFrom grDevices col2rgb rgb
 #' @noRd
 color2hex <- function(color){
   RGB <- col2rgb(color)[,1L]
