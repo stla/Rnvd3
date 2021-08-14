@@ -10,6 +10,7 @@ lineChart(
   yAxisTitle = "y",
   margins = list(l = 100),
   duration = 500,
+  useInteractiveGuideline = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL

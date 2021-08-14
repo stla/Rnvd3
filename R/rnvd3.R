@@ -302,6 +302,7 @@ hMultiBarChart <- function(
 #' @param yAxisTitle
 #' @param margins
 #' @param duration
+#' @param useInteractiveGuideline
 #' @param width
 #' @param height
 #' @param elementId
@@ -316,6 +317,7 @@ lineChart <- function(
   yAxisTitle = "y",
   margins = list("l" = 100),
   duration = 500,
+  useInteractiveGuideline = TRUE,
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -332,15 +334,17 @@ lineChart <- function(
   stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
   stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
   stopifnot(isNumber(duration))
+  stopifnot(isBoolean(useInteractiveGuideline))
 
   # forward options using x
   x <- list(
     "chart"                   = "linechart",
     "Data"                    = lcData,
-    "xAxisTitle"               = xAxisTitle,
-    "yAxisTitle"               = yAxisTitle,
-    "margins"                  = margins,
-    "duration"                 = duration
+    "xAxisTitle"              = xAxisTitle,
+    "yAxisTitle"              = yAxisTitle,
+    "margins"                 = margins,
+    "duration"                = duration,
+    "useInteractiveGuideline" = useInteractiveGuideline
   )
 
   # create widget
