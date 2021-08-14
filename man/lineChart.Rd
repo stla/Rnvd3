@@ -4,7 +4,16 @@
 \alias{lineChart}
 \title{Title}
 \usage{
-lineChart(data, width = NULL, height = NULL, elementId = NULL)
+lineChart(
+  data,
+  xAxisTitle = "x",
+  yAxisTitle = "y",
+  margins = list(l = 100),
+  duration = 500,
+  width = NULL,
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{elementId}{}

@@ -100,18 +100,19 @@ HTMLWidgets.widget({
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
-              .margin({ left: 100, top: 50 }) //Adjust chart margins to give the x-axis some breathing room.
+              .margin(x.margins)
               .useInteractiveGuideline(true) //We want nice looking tooltips and a guideline!
-              .duration(350) //how fast do you want the lines to transition?
+              .duration(x.duration) //how fast do you want the lines to transition?
               .showLegend(true) //Show the legend, allowing users to turn on/off line series.
               .showYAxis(true) //Show the y-axis
               .showXAxis(true); //Show the x-axis
+
             chart.xAxis //Chart x-axis settings
-              .axisLabel("Time (ms)")
-              .tickFormat(d3.format(",r"));
+              .axisLabel(x.xAxisTitle)
+              .tickFormat(d3.format("d"));
 
             chart.yAxis //Chart y-axis settings
-              .axisLabel("Voltage (v)")
+              .axisLabel(x.yAxisTitle)
               .tickFormat(d3.format(".02f"));
 
             /* Done setting the chart up? Time to render it!*/
