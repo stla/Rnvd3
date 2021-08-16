@@ -54,6 +54,18 @@ HTMLWidgets.widget({
 
             nv.utils.windowResize(chart.update);
 
+            if (x.legendTitle) {
+              d3.select(".nv-legend g")
+                .append("g")
+                .attr("transform", "translate(" + x.legendHjust + ",5)")
+                .append("text")
+                .attr("dy", ".32em")
+                .attr("dx", 8)
+                .attr("class", "nv-legend-text")
+                .attr("text-anchor", "end")
+                .text(x.legendTitle);
+            }
+
             return chart;
           });
         } else if (x.chart === "horizontalmultibarchart") {
@@ -105,15 +117,19 @@ HTMLWidgets.widget({
               .duration(x.duration) //how fast do you want the lines to transition?
               .showLegend(true) //Show the legend, allowing users to turn on/off line series.
               .showYAxis(true) //Show the y-axis
-              .showXAxis(true); //Show the x-axis
+              .showXAxis(true) //Show the x-axis
+              .interpolate(x.interpolate)
+              .legendPosition(x.legendPosition);
 
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
-              .tickFormat(d3.format(x.xAxisTickFormat));
+              .tickFormat(d3.format(x.xAxisTickFormat))
+              .fontSize(x.xLabelsFontSize);
 
             chart.yAxis //Chart y-axis settings
               .axisLabel(x.yAxisTitle)
-              .tickFormat(d3.format(x.yAxisTickFormat));
+              .tickFormat(d3.format(x.yAxisTickFormat))
+              .fontSize(x.yLabelsFontSize);
 
             /* Done setting the chart up? Time to render it!*/
 

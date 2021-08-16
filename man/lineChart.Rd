@@ -13,6 +13,10 @@ lineChart(
   useInteractiveGuideline = TRUE,
   xAxisTickFormat = "d",
   yAxisTickFormat = ".02f",
+  xLabelsFontSize = "0.75rem",
+  yLabelsFontSize = "0.75rem",
+  legendPosition = "top",
+  interpolate = "linear",
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -39,9 +43,24 @@ to change just those parts}
 
 \item{yAxisTickFormat}{a d3 formatting string for the ticks on the y-axis}
 
-\item{width}{chart width}
+\item{xLabelsFontSize}{a CSS measure, the font size of the labels on the
+x-axis}
 
-\item{height}{chart height}
+\item{yLabelsFontSize}{a CSS measure, the font size of the labels on the
+y-axis}
+
+\item{legendPosition}{string, the legend position, \code{"top"} or
+\code{"right"}}
+
+\item{interpolate}{interpolation type, a string among \code{"linear"},
+\code{"step-before"}, \code{"step-after"}, \code{"basis"},
+\code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
+\code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
+\code{"monotone"}}
+
+\item{width}{width of the chart container, must be a valid CSS measure}
+
+\item{height}{height of the chart container, must be a valid CSS measure}
 
 \item{elementId}{an id for the chart container, usually useless}
 }

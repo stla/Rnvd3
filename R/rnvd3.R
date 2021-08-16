@@ -45,6 +45,8 @@
 #' @param useInteractiveGuideline Boolean, other kind of tooltips: sets the
 #'   chart to use a guideline and floating tooltip instead of requiring the
 #'   user to hover over specific hotspots
+#' @param legendTitle a title for the legend, or \code{NULL} for no title
+#' @param legendHjust horizontal adjustment of the legend title
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container; commonly useless
@@ -55,6 +57,7 @@
 #'   \link[=rnvd3Output]{shiny example}.
 #'
 #' @import htmlwidgets
+#' @importFrom htmltools validateCssUnit
 #' @export
 #'
 #' @examples library(Rnvd3)
@@ -105,7 +108,8 @@ multiBarChart <- function(
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
-
+  legendTitle = NULL,
+  legendHjust = -20,
   width = NULL, height = NULL, elementId = NULL
 ) {
   # stopifnot(is.null(title) || isString(title))
@@ -125,6 +129,10 @@ multiBarChart <- function(
   stopifnot(isBoolean(staggerLabels))
   stopifnot(isBoolean(wrapLabels))
   stopifnot(isBoolean(useInteractiveGuideline))
+  stopifnot(is.null(legendTitle) || isString(legendTitle))
+  stopifnot(isNumber(legendHjust))
+  xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
+  yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -158,7 +166,9 @@ multiBarChart <- function(
     "rightAlignYaxis"         = rightAlignYaxis,
     "staggerLabels"           = staggerLabels,
     "wrapLabels"              = wrapLabels,
-    "useInteractiveGuideline" = useInteractiveGuideline
+    "useInteractiveGuideline" = useInteractiveGuideline,
+    "legendTitle"             = legendTitle,
+    "legendHjust"             = legendHjust
   )
 
   # create widget
@@ -216,6 +226,7 @@ multiBarChart <- function(
 #' @return A htmlwidget displaying a grouped/stacked bar chart.
 #'
 #' @import htmlwidgets
+#' @importFrom htmltools validateCssUnit
 #' @export
 #'
 #' @examples library(Rnvd3)
@@ -253,6 +264,8 @@ hMultiBarChart <- function(
   stopifnot(isNumber(yAxisTitleDistance))
   stopifnot(isBoolean(xAxisShowMaxMin))
   stopifnot(isString(xAxisTickFormat))
+  xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
+  yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
   stopifnot(isBoolean(showValues))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
@@ -310,12 +323,24 @@ hMultiBarChart <- function(
 #' @param useInteractiveGuideline Boolean, a guideline and synchronized tooltips
 #' @param xAxisTickFormat a d3 formatting string for the ticks on the x-axis
 #' @param yAxisTickFormat a d3 formatting string for the ticks on the y-axis
-#' @param width chart width
-#' @param height chart height
+#' @param xLabelsFontSize a CSS measure, the font size of the labels on the
+#'   x-axis
+#' @param yLabelsFontSize a CSS measure, the font size of the labels on the
+#'   y-axis
+#' @param legendPosition string, the legend position, \code{"top"} or
+#'   \code{"right"}
+#' @param interpolate interpolation type, a string among \code{"linear"},
+#'   \code{"step-before"}, \code{"step-after"}, \code{"basis"},
+#'   \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
+#'   \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
+#'   \code{"monotone"}
+#' @param width width of the chart container, must be a valid CSS measure
+#' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
 #'
 #' @return A HTML widget displaying a line chart.
 #' @export
+#' @importFrom htmltools validateCssUnit
 #'
 #' @examples library(Rnvd3)
 #'
@@ -336,6 +361,10 @@ lineChart <- function(
   useInteractiveGuideline = TRUE,
   xAxisTickFormat = "d",
   yAxisTickFormat = ".02f",
+  xLabelsFontSize = "0.75rem",
+  yLabelsFontSize = "0.75rem",
+  legendPosition = "top",
+  interpolate = "linear",
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -355,7 +384,17 @@ lineChart <- function(
   stopifnot(isBoolean(useInteractiveGuideline))
   stopifnot(isString(xAxisTickFormat))
   stopifnot(isString(yAxisTickFormat))
-
+  xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
+  yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
+  stopifnot(isString(legendPosition))
+  legendPosition <- match.arg(legendPosition, c("top", "right"))
+  stopifnot(isString(interpolate))
+  interpolate <- match.arg(
+    interpolate,
+    c("linear", "step-before", "step-after", "basis", "basis-open",
+      "basis-closed", "bundle", "cardinal", "cardinal-open", "cardinal-closed",
+      "monotone")
+  )
 
   # forward options using x
   x <- list(
@@ -367,7 +406,11 @@ lineChart <- function(
     "duration"                = duration,
     "useInteractiveGuideline" = useInteractiveGuideline,
     "xAxisTickFormat"         = xAxisTickFormat,
-    "yAxisTickFormat"         = yAxisTickFormat
+    "yAxisTickFormat"         = yAxisTickFormat,
+    "xLabelsFontSize"         = xLabelsFontSize,
+    "yLabelsFontSize"         = yLabelsFontSize,
+    "legendPosition"          = legendPosition,
+    "interpolate"             = interpolate
   )
 
   # create widget

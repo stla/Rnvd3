@@ -25,6 +25,8 @@ multiBarChart(
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
+  legendTitle = NULL,
+  legendHjust = -20,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -93,6 +95,10 @@ order to prevent overlapping}
 \item{useInteractiveGuideline}{Boolean, other kind of tooltips: sets the
 chart to use a guideline and floating tooltip instead of requiring the
 user to hover over specific hotspots}
+
+\item{legendTitle}{a title for the legend, or \code{NULL} for no title}
+
+\item{legendHjust}{horizontal adjustment of the legend title}
 
 \item{width}{width of the chart container, must be a valid CSS measure}
 
