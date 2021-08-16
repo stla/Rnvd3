@@ -2,26 +2,64 @@
 % Please edit documentation in R/rnvd3.R
 \name{lineChart}
 \alias{lineChart}
-\title{Title}
+\title{Line chart}
 \usage{
 lineChart(
   data,
   xAxisTitle = "x",
   yAxisTitle = "y",
-  margins = list(l = 100),
+  margins = list(l = 90),
   duration = 500,
   useInteractiveGuideline = TRUE,
+  xAxisTickFormat = "d",
+  yAxisTickFormat = ".02f",
   width = NULL,
   height = NULL,
   elementId = NULL
 )
 }
 \arguments{
-\item{elementId}{}
+\item{data}{data used fir the chart; it must be a list created with
+\code{\link{lineChartData}}, or a list os such lists (for multiple lines)}
+
+\item{xAxisTitle}{string, the title of the x-axis}
+
+\item{yAxisTitle}{string, the title of the y-axis}
+
+\item{margins}{a named list defining the margins, with names \code{"t"},
+\code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
+and "left" respectively; you can specify only certain margins in the list
+to change just those parts}
+
+\item{duration}{transition duration in milliseconds}
+
+\item{useInteractiveGuideline}{Boolean, a guideline and synchronized tooltips}
+
+\item{xAxisTickFormat}{a d3 formatting string for the ticks on the x-axis}
+
+\item{yAxisTickFormat}{a d3 formatting string for the ticks on the y-axis}
+
+\item{width}{chart width}
+
+\item{height}{chart height}
+
+\item{elementId}{an id for the chart container, usually useless}
 }
 \value{
-
+A HTML widget displaying a line chart.
 }
 \description{
-Title
+Create a HTML widget displaying a line chart.
+}
+\examples{
+library(Rnvd3)
+
+dat1 <-
+  lineChartData(x = 1:100, y = sin(1:100/10), key = "Sine wave", color = "lime")
+dat2 <-
+  lineChartData(x = 1:100, y = sin(1:100/10)*0.25 + 0.5,
+                key = "Another sine wave", color = "red")
+dat <- list(dat1, dat2)
+
+lineChart(dat)
 }

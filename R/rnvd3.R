@@ -317,12 +317,21 @@ hMultiBarChart <- function(
 #' @return A HTML widget displaying a line chart.
 #' @export
 #'
-#' @examples
+#' @examples library(Rnvd3)
+#'
+#' dat1 <-
+#'   lineChartData(x = 1:100, y = sin(1:100/10), key = "Sine wave", color = "lime")
+#' dat2 <-
+#'   lineChartData(x = 1:100, y = sin(1:100/10)*0.25 + 0.5,
+#'                 key = "Another sine wave", color = "red")
+#' dat <- list(dat1, dat2)
+#'
+#' lineChart(dat)
 lineChart <- function(
   data,
   xAxisTitle = "x",
   yAxisTitle = "y",
-  margins = list("l" = 100),
+  margins = list("l" = 90),
   duration = 500,
   useInteractiveGuideline = TRUE,
   xAxisTickFormat = "d",
