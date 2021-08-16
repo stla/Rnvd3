@@ -7,5 +7,5 @@ dat2 <-
                 key = "Another sine wave", color = "red")
 dat <- list(dat1, dat2)
 
-lineChart(dat, yLabelsFontSize = "0.75rem", interpolate = "step-before",
+lineChart(dat, yLabelsFontSize = "0.75rem", interpolate = "bundle",
           legendPosition = "top")
