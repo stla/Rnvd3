@@ -295,19 +295,26 @@ hMultiBarChart <- function(
   )
 }
 
-#' Title
+#' @title Line chart
+#' @description Create a HTML widget displaying a line chart.
 #'
-#' @param data
-#' @param xAxisTitle
-#' @param yAxisTitle
-#' @param margins
-#' @param duration
-#' @param useInteractiveGuideline
-#' @param width
-#' @param height
-#' @param elementId
+#' @param data data used fir the chart; it must be a list created with
+#'   \code{\link{lineChartData}}, or a list os such lists (for multiple lines)
+#' @param xAxisTitle string, the title of the x-axis
+#' @param yAxisTitle string, the title of the y-axis
+#' @param margins a named list defining the margins, with names \code{"t"},
+#'   \code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
+#'   and "left" respectively; you can specify only certain margins in the list
+#'   to change just those parts
+#' @param duration transition duration in milliseconds
+#' @param useInteractiveGuideline Boolean, a guideline and synchronized tooltips
+#' @param xAxisTickFormat a d3 formatting string for the ticks on the x-axis
+#' @param yAxisTickFormat a d3 formatting string for the ticks on the y-axis
+#' @param width chart width
+#' @param height chart height
+#' @param elementId an id for the chart container, usually useless
 #'
-#' @return
+#' @return A HTML widget displaying a line chart.
 #' @export
 #'
 #' @examples
@@ -318,6 +325,8 @@ lineChart <- function(
   margins = list("l" = 100),
   duration = 500,
   useInteractiveGuideline = TRUE,
+  xAxisTickFormat = "d",
+  yAxisTickFormat = ".02f",
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -335,6 +344,9 @@ lineChart <- function(
   stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
   stopifnot(isNumber(duration))
   stopifnot(isBoolean(useInteractiveGuideline))
+  stopifnot(isString(xAxisTickFormat))
+  stopifnot(isString(yAxisTickFormat))
+
 
   # forward options using x
   x <- list(
@@ -344,7 +356,9 @@ lineChart <- function(
     "yAxisTitle"              = yAxisTitle,
     "margins"                 = margins,
     "duration"                = duration,
-    "useInteractiveGuideline" = useInteractiveGuideline
+    "useInteractiveGuideline" = useInteractiveGuideline,
+    "xAxisTickFormat"         = xAxisTickFormat,
+    "yAxisTickFormat"         = yAxisTickFormat
   )
 
   # create widget

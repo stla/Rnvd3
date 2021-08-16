@@ -109,11 +109,11 @@ HTMLWidgets.widget({
 
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
-              .tickFormat(d3.format("d"));
+              .tickFormat(d3.format(x.xAxisTickFormat));
 
             chart.yAxis //Chart y-axis settings
               .axisLabel(x.yAxisTitle)
-              .tickFormat(d3.format(".02f"));
+              .tickFormat(d3.format(x.yAxisTickFormat));
 
             /* Done setting the chart up? Time to render it!*/
 
