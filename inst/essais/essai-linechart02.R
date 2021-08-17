@@ -8,4 +8,4 @@ dat2 <-
 dat <- list(dat1, dat2)
 
 lineChart(dat, yLabelsFontSize = "0.75rem", interpolate = "bundle",
-          legendPosition = "top", xRange = c(0,20), yRange = c(0,1))
+          legendPosition = "top", rightAlignYaxis = TRUE)

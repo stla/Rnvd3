@@ -10,7 +10,7 @@ HTMLWidgets.widget({
       renderValue: function (x) {
         var Data = JSON.parse(x.Data);
 
-        if (x.chart === "multibarchart") {
+        if (x.chart === "multibarchart") { /* -------- multibarchart -------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarChart()
@@ -69,7 +69,7 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "horizontalmultibarchart") {
+        } else if (x.chart === "horizontalmultibarchart") { /* hmultibarcart */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -109,7 +109,7 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "linechart") { /* --- linechart --- */
+        } else if (x.chart === "linechart") { /* -------- linechart --------- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
@@ -120,7 +120,8 @@ HTMLWidgets.widget({
               .showYAxis(true) //Show the y-axis
               .showXAxis(true) //Show the x-axis
               .interpolate(x.interpolate)
-              .legendPosition(x.legendPosition);
+              .legendPosition(x.legendPosition)
+              .rightAlignYAxis(x.rightAlignYaxis);
 
             if(x.xRange){
               chart.xDomain(x.xRange);

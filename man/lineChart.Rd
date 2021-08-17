@@ -19,6 +19,7 @@ lineChart(
   interpolate = "linear",
   xRange = NULL,
   yRange = NULL,
+  rightAlignYaxis = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -65,6 +66,9 @@ y-axis}
 
 \item{yRange}{the y-axis range, a numeric vector of length 2, or
 \code{NULL} to derive it from the data}
+
+\item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
+instead of the left}
 
 \item{width}{width of the chart container, must be a valid CSS measure}
 

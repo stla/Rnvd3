@@ -4,7 +4,7 @@ Title: An Incomplete Wrapper of the 'nvd3' JavaScript Library
 Version: 0.1.0
 Author: Stéphane laurent
 Maintainer: Stéphane laurent <laurent_step@outlook.fr>
-Description: So far only the multibar chart, the horizontal multibar chart and the line chart are available.
+Description: Creates JavaScript charts with the 'nvd3' library. So far only the multibar chart, the horizontal multibar chart and the line chart are available.
 License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/stla/Rnvd3

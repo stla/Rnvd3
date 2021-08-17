@@ -338,6 +338,8 @@ hMultiBarChart <- function(
 #'   \code{NULL} to derive it from the data
 #' @param yRange the y-axis range, a numeric vector of length 2, or
 #'   \code{NULL} to derive it from the data
+#' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
+#'   instead of the left
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
@@ -371,6 +373,7 @@ lineChart <- function(
   interpolate = "linear",
   xRange = NULL,
   yRange = NULL,
+  rightAlignYaxis = FALSE,
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -409,6 +412,7 @@ lineChart <- function(
   )
   if(!is.null(xRange)) xRange <- as.list(unname(xRange))
   if(!is.null(yRange)) yRange <- as.list(unname(yRange))
+  stopifnot(isBoolean(rightAlignYaxis))
 
   # forward options using x
   x <- list(
@@ -426,7 +430,8 @@ lineChart <- function(
     "legendPosition"          = legendPosition,
     "interpolate"             = interpolate,
     "xRange"                  = xRange,
-    "yRange"                  = yRange
+    "yRange"                  = yRange,
+    "rightAlignYaxis"         = rightAlignYaxis
   )
 
   # create widget
