@@ -17,6 +17,8 @@ lineChart(
   yLabelsFontSize = "0.75rem",
   legendPosition = "top",
   interpolate = "linear",
+  xRange = NULL,
+  yRange = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -57,6 +59,12 @@ y-axis}
 \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
 \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
 \code{"monotone"}}
+
+\item{xRange}{the x-axis range, a numeric vector of length 2, or
+\code{NULL} to derive it from the data}
+
+\item{yRange}{the y-axis range, a numeric vector of length 2, or
+\code{NULL} to derive it from the data}
 
 \item{width}{width of the chart container, must be a valid CSS measure}
 

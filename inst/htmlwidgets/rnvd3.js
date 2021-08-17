@@ -30,6 +30,7 @@ HTMLWidgets.widget({
               .wrapLabels(x.wrapLabels)
               .useInteractiveGuideline(x.useInteractiveGuideline)
               .clipEdge(false); // ?
+
             //          if(x.title){
             //            chart.title(x.title).titleOffset(x.titleOffset);
             //          }
@@ -108,7 +109,7 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "linechart") {
+        } else if (x.chart === "linechart") { /* --- linechart --- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
@@ -120,6 +121,13 @@ HTMLWidgets.widget({
               .showXAxis(true) //Show the x-axis
               .interpolate(x.interpolate)
               .legendPosition(x.legendPosition);
+
+            if(x.xRange){
+              chart.xDomain(x.xRange);
+            }
+            if(x.yRange){
+              chart.yDomain(x.yRange);
+            }
 
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)

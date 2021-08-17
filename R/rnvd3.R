@@ -334,6 +334,10 @@ hMultiBarChart <- function(
 #'   \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
 #'   \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
 #'   \code{"monotone"}
+#' @param xRange the x-axis range, a numeric vector of length 2, or
+#'   \code{NULL} to derive it from the data
+#' @param yRange the y-axis range, a numeric vector of length 2, or
+#'   \code{NULL} to derive it from the data
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
@@ -365,6 +369,8 @@ lineChart <- function(
   yLabelsFontSize = "0.75rem",
   legendPosition = "top",
   interpolate = "linear",
+  xRange = NULL,
+  yRange = NULL,
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -395,6 +401,14 @@ lineChart <- function(
       "basis-closed", "bundle", "cardinal", "cardinal-open", "cardinal-closed",
       "monotone")
   )
+  stopifnot(
+    is.null(xRange) || (is.numeric(xRange) && length(xRange) == 2L)
+  )
+  stopifnot(
+    is.null(yRange) || (is.numeric(yRange) && length(yRange) == 2L)
+  )
+  if(!is.null(xRange)) xRange <- as.list(unname(xRange))
+  if(!is.null(yRange)) yRange <- as.list(unname(yRange))
 
   # forward options using x
   x <- list(
@@ -410,7 +424,9 @@ lineChart <- function(
     "xLabelsFontSize"         = xLabelsFontSize,
     "yLabelsFontSize"         = yLabelsFontSize,
     "legendPosition"          = legendPosition,
-    "interpolate"             = interpolate
+    "interpolate"             = interpolate,
+    "xRange"                  = xRange,
+    "yRange"                  = yRange
   )
 
   # create widget
