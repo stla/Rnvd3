@@ -446,6 +446,143 @@ lineChart <- function(
 
 }
 
+#' @title Line chart
+#' @description Create a HTML widget displaying a line chart.
+#'
+#' @param data data used fir the chart; it must be a list created with
+#'   \code{\link{lineChartData}}, or a list os such lists (for multiple lines)
+#' @param xAxisTitle string, the title of the x-axis
+#' @param yAxisTitle string, the title of the y-axis
+#' @param margins a named list defining the margins, with names \code{"t"},
+#'   \code{"r"}, \code{"b"} and \code{"l"}, for "top", "right", "bottom"
+#'   and "left" respectively; you can specify only certain margins in the list
+#'   to change just those parts
+#' @param duration transition duration in milliseconds
+#' @param useInteractiveGuideline Boolean, a guideline and synchronized tooltips
+#' @param xAxisTickFormat a d3 formatting string for the ticks on the x-axis
+#' @param yAxisTickFormat a d3 formatting string for the ticks on the y-axis
+#' @param xLabelsFontSize a CSS measure, the font size of the labels on the
+#'   x-axis
+#' @param yLabelsFontSize a CSS measure, the font size of the labels on the
+#'   y-axis
+#' @param legendPosition string, the legend position, \code{"top"} or
+#'   \code{"right"}
+#' @param interpolate interpolation type, a string among \code{"linear"},
+#'   \code{"step-before"}, \code{"step-after"}, \code{"basis"},
+#'   \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
+#'   \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
+#'   \code{"monotone"}
+#' @param xRange the x-axis range, a numeric vector of length 2, or
+#'   \code{NULL} to derive it from the data
+#' @param yRange the y-axis range, a numeric vector of length 2, or
+#'   \code{NULL} to derive it from the data
+#' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
+#'   instead of the left
+#' @param width width of the chart container, must be a valid CSS measure
+#' @param height height of the chart container, must be a valid CSS measure
+#' @param elementId an id for the chart container, usually useless
+#'
+#' @return A HTML widget displaying a line chart.
+#' @export
+#' @importFrom htmltools validateCssUnit
+#'
+#' @examples library(Rnvd3)
+#'
+#' dat1 <-
+#'   lineChartData(x = 1:100, y = sin(1:100/10), key = "Sine wave", color = "lime")
+#' dat2 <-
+#'   lineChartData(x = 1:100, y = sin(1:100/10)*0.25 + 0.5,
+#'                 key = "Another sine wave", color = "red")
+#' dat <- list(dat1, dat2)
+#'
+#' lineFocusChart(dat)
+lineFocusChart <- function(
+  data,
+  xAxisTitle = "x",
+  yAxisTitle = "y",
+  margins = list("l" = 90),
+  duration = 500,
+  useInteractiveGuideline = FALSE,
+  xAxisTickFormat = "d",
+  yAxisTickFormat = ".02f",
+  xLabelsFontSize = "0.75rem",
+  yLabelsFontSize = "0.75rem",
+  legendPosition = "top",
+  interpolate = "linear",
+  xRange = NULL,
+  yRange = NULL,
+  rightAlignYaxis = FALSE,
+  width = NULL, height = NULL, elementId = NULL
+){
+  lcData <- makeLineChartData(data)
+  stopifnot(isNamedList(margins))
+  stopifnot(all(names(margins) %in% c("t", "r", "b", "l")))
+  margins <- dropNulls(
+    list(
+      "top"    = margins[["t"]],
+      "right"  = margins[["r"]],
+      "bottom" = margins[["b"]],
+      "left"   = margins[["l"]]
+    )
+  )
+  stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
+  stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
+  stopifnot(isNumber(duration))
+  stopifnot(isBoolean(useInteractiveGuideline))
+  stopifnot(isString(xAxisTickFormat))
+  stopifnot(isString(yAxisTickFormat))
+  xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
+  yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
+  stopifnot(isString(legendPosition))
+  legendPosition <- match.arg(legendPosition, c("top", "right"))
+  stopifnot(isString(interpolate))
+  interpolate <- match.arg(
+    interpolate,
+    c("linear", "step-before", "step-after", "basis", "basis-open",
+      "basis-closed", "bundle", "cardinal", "cardinal-open", "cardinal-closed",
+      "monotone")
+  )
+  stopifnot(
+    is.null(xRange) || (is.numeric(xRange) && length(xRange) == 2L)
+  )
+  stopifnot(
+    is.null(yRange) || (is.numeric(yRange) && length(yRange) == 2L)
+  )
+  if(!is.null(xRange)) xRange <- as.list(unname(xRange))
+  if(!is.null(yRange)) yRange <- as.list(unname(yRange))
+  stopifnot(isBoolean(rightAlignYaxis))
+
+  # forward options using x
+  x <- list(
+    "chart"                   = "linefocuschart",
+    "Data"                    = lcData,
+    "xAxisTitle"              = xAxisTitle,
+    "yAxisTitle"              = yAxisTitle,
+    "margins"                 = margins,
+    "duration"                = duration,
+    "useInteractiveGuideline" = useInteractiveGuideline,
+    "xAxisTickFormat"         = xAxisTickFormat,
+    "yAxisTickFormat"         = yAxisTickFormat,
+    "xLabelsFontSize"         = xLabelsFontSize,
+    "yLabelsFontSize"         = yLabelsFontSize,
+    "legendPosition"          = legendPosition,
+    "interpolate"             = interpolate,
+    "xRange"                  = xRange,
+    "yRange"                  = yRange,
+    "rightAlignYaxis"         = rightAlignYaxis
+  )
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = "rnvd3",
+    x,
+    width = width,
+    height = height,
+    package = "Rnvd3",
+    elementId = elementId
+  )
+}
+
 #' @importFrom htmltools tags
 #' @noRd
 widget_html.rnvd3 <- function(id, style, class, ...){

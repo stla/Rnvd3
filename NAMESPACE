@@ -3,6 +3,7 @@
 export(hMultiBarChart)
 export(lineChart)
 export(lineChartData)
+export(lineFocusChart)
 export(multiBarChart)
 export(renderRnvd3)
 export(rnvd3Output)

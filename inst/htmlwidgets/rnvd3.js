@@ -69,7 +69,7 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "horizontalmultibarchart") { /* hmultibarcart */
+        } else if (x.chart === "horizontalmultibarchart") {  /* hmultibarcart */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -152,7 +152,51 @@ HTMLWidgets.widget({
             });
             return chart;
           });
+        } else if (x.chart === "linefocuschart") {  /* --- linefocuschart --- */
+          nv.addGraph(function () {
+            var chart = nv.models
+              .lineWithFocusChart()
+              .margin(x.margins)
+              .useInteractiveGuideline(x.useInteractiveGuideline)
+              .duration(x.duration)
+              .showLegend(true)
+              .showYAxis(true)
+              .showXAxis(true)
+              .interpolate(x.interpolate)
+              .legendPosition(x.legendPosition)
+              .rightAlignYAxis(x.rightAlignYaxis);
+
+            if(x.xRange){
+              chart.xDomain(x.xRange);
+            }
+            if(x.yRange){
+              chart.yDomain(x.yRange);
+            }
+
+            chart.xAxis //Chart x-axis settings
+              .axisLabel(x.xAxisTitle)
+              .tickFormat(d3.format(x.xAxisTickFormat))
+              .fontSize(x.xLabelsFontSize);
+
+            chart.yAxis //Chart y-axis settings
+              .axisLabel(x.yAxisTitle)
+              .tickFormat(d3.format(x.yAxisTickFormat))
+              .fontSize(x.yLabelsFontSize);
+
+            /* Done setting the chart up? Time to render it!*/
+
+            d3.select(el.firstElementChild)
+              .datum(Data) //Populate the <svg> element with chart data...
+              .call(chart); //Finally, render the chart!
+
+            //Update the chart when window resizes.
+            nv.utils.windowResize(function () {
+              chart.update();
+            });
+            return chart;
+          });
         }
+
       },
 
       resize: function (width, height) {
