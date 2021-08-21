@@ -54,6 +54,9 @@
 #'     \item{header}{formatter for the tooltip header (this is the x-value)}
 #'     \item{key}{formatter for the value of the 'by' variable}
 #'   }
+#' @param tooltipTransitions Boolean, whether to style the tooltip with a
+#'   fade effect
+#' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
 #' @param legendTitle a title for the legend, or \code{NULL} for no title
 #' @param legendHjust horizontal adjustment of the legend title
 #' @param width width of the chart container, must be a valid CSS measure
@@ -138,6 +141,8 @@ multiBarChart <- function(
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   legendTitle = NULL,
   legendHjust = -20,
   width = NULL, height = NULL, elementId = NULL
@@ -226,6 +231,7 @@ multiBarChart <- function(
     width = width,
     height = height,
     package = "Rnvd3",
+    dependencies = CSSdependencies(tooltipTransitions, tooltipShadow),
     elementId = elementId
   )
 }
@@ -267,6 +273,9 @@ multiBarChart <- function(
 #' @param yLabelsFontSize a CSS measure, the font size of the labels on the
 #'   y-axis
 #' @param showValues Boolean, whether to show the values next to the bars
+#' @param tooltipTransitions Boolean, whether to style the tooltip with a
+#'   fade effect
+#' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container; commonly useless
@@ -299,6 +308,8 @@ hMultiBarChart <- function(
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
 
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -352,6 +363,7 @@ hMultiBarChart <- function(
     width = width,
     height = height,
     package = "Rnvd3",
+    dependencies = CSSdependencies(tooltipTransitions, tooltipShadow),
     elementId = elementId
   )
 }
@@ -388,6 +400,9 @@ hMultiBarChart <- function(
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
 #'   instead of the left
+#' @param tooltipTransitions Boolean, whether to style the tooltip with a
+#'   fade effect
+#' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
@@ -422,6 +437,8 @@ lineChart <- function(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -489,13 +506,14 @@ lineChart <- function(
     width = width,
     height = height,
     package = "Rnvd3",
+    dependencies = CSSdependencies(tooltipTransitions, tooltipShadow),
     elementId = elementId
   )
 
 }
 
-#' @title Line chart
-#' @description Create a HTML widget displaying a line chart.
+#' @title Line chart with focus
+#' @description Create a HTML widget displaying a line chart with a focus tool.
 #'
 #' @param data data used fir the chart; it must be a list created with
 #'   \code{\link{lineChartData}}, or a list os such lists (for multiple lines)
@@ -533,9 +551,9 @@ lineChart <- function(
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
 #'
-#' @return A HTML widget displaying a line chart.
+#' @return A HTML widget displaying a line chart with a focus tool.
 #' @export
-#' @importFrom htmltools validateCssUnit htmlDependency
+#' @importFrom htmltools validateCssUnit
 #' @importFrom utils packageVersion
 #'
 #' @examples library(Rnvd3)
@@ -608,32 +626,6 @@ lineFocusChart <- function(
   stopifnot(isBoolean(tooltipTransitions))
   stopifnot(isBoolean(tooltipShadow))
 
-  dependencies <- NULL
-  if(tooltipTransitions){
-    dependencies <- list(
-      htmlDependency(
-        name = "withTranstions",
-        version = as.character(packageVersion("Rnvd3")),
-        src = file.path("htmlwidgets", "css"),
-        stylesheet = "withTransitions.css",
-        package = "Rnvd3",
-        all_files = FALSE
-      )
-    )
-  }
-  if(tooltipShadow){
-    dependencies <- c(dependencies, list(
-      htmlDependency(
-        name = "withShadow",
-        version = as.character(packageVersion("Rnvd3")),
-        src = file.path("htmlwidgets", "css"),
-        stylesheet = "with3dShadow.css",
-        package = "Rnvd3",
-        all_files = FALSE
-      )
-    ))
-  }
-
   # forward options using x
   x <- list(
     "chart"                   = "linefocuschart",
@@ -661,7 +653,7 @@ lineFocusChart <- function(
     width = width,
     height = height,
     package = "Rnvd3",
-    dependencies = dependencies,
+    dependencies = CSSdependencies(tooltipTransitions, tooltipShadow),
     elementId = elementId
   )
 }

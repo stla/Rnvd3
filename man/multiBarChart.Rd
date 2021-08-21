@@ -26,6 +26,8 @@ multiBarChart(
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   legendTitle = NULL,
   legendHjust = -20,
   width = NULL,
@@ -106,6 +108,11 @@ created with \code{\link{JS}}; there are three possible formatters
   \item{header}{formatter for the tooltip header (this is the x-value)}
   \item{key}{formatter for the value of the 'by' variable}
 }}
+
+\item{tooltipTransitions}{Boolean, whether to style the tooltip with a
+fade effect}
+
+\item{tooltipShadow}{Boolean, whether to style the tooltip with a shadow}
 
 \item{legendTitle}{a title for the legend, or \code{NULL} for no title}
 

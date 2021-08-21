@@ -2,7 +2,7 @@
 % Please edit documentation in R/rnvd3.R
 \name{lineFocusChart}
 \alias{lineFocusChart}
-\title{Line chart}
+\title{Line chart with focus}
 \usage{
 lineFocusChart(
   data,
@@ -84,10 +84,10 @@ fade effect}
 \item{elementId}{an id for the chart container, usually useless}
 }
 \value{
-A HTML widget displaying a line chart.
+A HTML widget displaying a line chart with a focus tool.
 }
 \description{
-Create a HTML widget displaying a line chart.
+Create a HTML widget displaying a line chart with a focus tool.
 }
 \examples{
 library(Rnvd3)

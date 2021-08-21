@@ -21,6 +21,8 @@ hMultiBarChart(
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -75,6 +77,11 @@ x-axis}
 y-axis}
 
 \item{showValues}{Boolean, whether to show the values next to the bars}
+
+\item{tooltipTransitions}{Boolean, whether to style the tooltip with a
+fade effect}
+
+\item{tooltipShadow}{Boolean, whether to style the tooltip with a shadow}
 
 \item{width}{width of the chart container, must be a valid CSS measure}
 
