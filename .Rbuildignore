@@ -4,3 +4,4 @@
 ^LICENSE$
 ^inst/screenshots$
 ^\.github$
+^man-roxygen$

@@ -10,7 +10,8 @@ HTMLWidgets.widget({
       renderValue: function (x) {
         var Data = JSON.parse(x.Data);
 
-        if (x.chart === "multibarchart") { /* -------- multibarchart -------- */
+        if (x.chart === "multibarchart") {
+          /* -------- multibarchart -------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarChart()
@@ -31,18 +32,18 @@ HTMLWidgets.widget({
               .useInteractiveGuideline(x.useInteractiveGuideline)
               .clipEdge(false); // ?
 
-              var tfvalue  = x.tooltipFormatters.value;
-              var tfheader = x.tooltipFormatters.header;
-              var tfkey    = x.tooltipFormatters.key;
-              if(tfvalue){
-                chart.tooltip.valueFormatter(tfvalue);
-              }
-              if(tfheader){
-                chart.tooltip.headerFormatter(tfheader);
-              }
-              if(tfkey){
-                chart.tooltip.keyFormatter(tfkey);
-              }
+            var tfvalue = x.tooltipFormatters.value;
+            var tfheader = x.tooltipFormatters.header;
+            var tfkey = x.tooltipFormatters.key;
+            if (tfvalue) {
+              chart.tooltip.valueFormatter(tfvalue);
+            }
+            if (tfheader) {
+              chart.tooltip.headerFormatter(tfheader);
+            }
+            if (tfkey) {
+              chart.tooltip.keyFormatter(tfkey);
+            }
 
             //          if(x.title){
             //            chart.title(x.title).titleOffset(x.titleOffset);
@@ -82,7 +83,8 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "horizontalmultibarchart") {  /* hmultibarcart */
+        } else if (x.chart === "horizontalmultibarchart") {
+          /* hmultibarcart */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -104,6 +106,19 @@ HTMLWidgets.widget({
             //              .useInteractiveGuideline(x.useInteractiveGuideline)
             //              .clipEdge(false); // ?
 
+            var tfvalue = x.tooltipFormatters.value;
+            var tfheader = x.tooltipFormatters.header;
+            var tfkey = x.tooltipFormatters.key;
+            if (tfvalue) {
+              chart.tooltip.valueFormatter(tfvalue);
+            }
+            if (tfheader) {
+              chart.tooltip.headerFormatter(tfheader);
+            }
+            if (tfkey) {
+              chart.tooltip.keyFormatter(tfkey);
+            }
+
             chart.xAxis
               .axisLabel(x.xAxisTitle)
               .axisLabelDistance(x.yAxisTitleDistance)
@@ -122,7 +137,8 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "linechart") { /* -------- linechart --------- */
+        } else if (x.chart === "linechart") {
+          /* -------- linechart --------- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
@@ -136,11 +152,24 @@ HTMLWidgets.widget({
               .legendPosition(x.legendPosition)
               .rightAlignYAxis(x.rightAlignYaxis);
 
-            if(x.xRange){
+            if (x.xRange) {
               chart.xDomain(x.xRange);
             }
-            if(x.yRange){
+            if (x.yRange) {
               chart.yDomain(x.yRange);
+            }
+
+            var tfvalue = x.tooltipFormatters.value;
+            var tfheader = x.tooltipFormatters.header;
+            var tfkey = x.tooltipFormatters.key;
+            if (tfvalue) {
+              chart.tooltip.valueFormatter(tfvalue);
+            }
+            if (tfheader) {
+              chart.tooltip.headerFormatter(tfheader);
+            }
+            if (tfkey) {
+              chart.tooltip.keyFormatter(tfkey);
             }
 
             chart.xAxis //Chart x-axis settings
@@ -165,7 +194,8 @@ HTMLWidgets.widget({
             });
             return chart;
           });
-        } else if (x.chart === "linefocuschart") {  /* --- linefocuschart --- */
+        } else if (x.chart === "linefocuschart") {
+          /* --- linefocuschart --- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineWithFocusChart()
@@ -179,11 +209,24 @@ HTMLWidgets.widget({
               .legendPosition(x.legendPosition)
               .rightAlignYAxis(x.rightAlignYaxis);
 
-            if(x.xRange){
+            if (x.xRange) {
               chart.xDomain(x.xRange);
             }
-            if(x.yRange){
+            if (x.yRange) {
               chart.yDomain(x.yRange);
+            }
+
+            var tfvalue = x.tooltipFormatters.value;
+            var tfheader = x.tooltipFormatters.header;
+            var tfkey = x.tooltipFormatters.key;
+            if (tfvalue) {
+              chart.tooltip.valueFormatter(tfvalue);
+            }
+            if (tfheader) {
+              chart.tooltip.headerFormatter(tfheader);
+            }
+            if (tfkey) {
+              chart.tooltip.keyFormatter(tfkey);
             }
 
             chart.xAxis //Chart x-axis settings
@@ -209,7 +252,6 @@ HTMLWidgets.widget({
             return chart;
           });
         }
-
       },
 
       resize: function (width, height) {

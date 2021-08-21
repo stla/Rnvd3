@@ -45,15 +45,7 @@
 #' @param useInteractiveGuideline Boolean, other kind of tooltips: sets the
 #'   chart to use a guideline and floating tooltip instead of requiring the
 #'   user to hover over specific hotspots
-#' @param tooltipFormatters formatters for the tooltip; each formatter must
-#'   be \code{NULL} for the default formatting, otherwise a JavaScript function
-#'   created with \code{\link{JS}}; there are three possible formatters
-#'   (see the example):
-#'   \describe{
-#'     \item{value}{formatter for the y-value displayed in the tooltip}
-#'     \item{header}{formatter for the tooltip header (this is the x-value)}
-#'     \item{key}{formatter for the value of the 'by' variable}
-#'   }
+#' @template tooltipFormattersTemplate
 #' @param tooltipTransitions Boolean, whether to style the tooltip with a
 #'   fade effect
 #' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
@@ -188,6 +180,11 @@ multiBarChart <- function(
       call. = TRUE
     )
   }
+  # if(length(tooltipFormatters) == 0L){
+  #   tooltipFormatters <- emptyNamedList
+  # }
+  stopifnot(isBoolean(tooltipTransitions))
+  stopifnot(isBoolean(tooltipShadow))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -276,6 +273,7 @@ multiBarChart <- function(
 #' @param yLabelsFontSize a CSS measure, the font size of the labels on the
 #'   y-axis
 #' @param showValues Boolean, whether to show the values next to the bars
+#' @template tooltipFormattersTemplate
 #' @param tooltipTransitions Boolean, whether to style the tooltip with a
 #'   fade effect
 #' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
@@ -311,6 +309,7 @@ hMultiBarChart <- function(
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
 
@@ -329,6 +328,25 @@ hMultiBarChart <- function(
   xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
   yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
   stopifnot(isBoolean(showValues))
+  stopifnot(is.list(tooltipFormatters))
+  formatters <- names(tooltipFormatters)
+  if(any(formatters %notin% c("value", "header", "key"))){
+    stop(
+      "Invalid names in 'tooltipFormatters' list.",
+      call. = TRUE
+    )
+  }
+  tooltipFormatters <- dropNulls(tooltipFormatters)
+  areJS <- all(vapply(tooltipFormatters, isJS, logical(1L)))
+  if(!areJS){
+    stop(
+      "Invalid 'tooltipFormatters' list. ",
+      "Each tooltip formatter must be created with the `JS` function.",
+      call. = TRUE
+    )
+  }
+  stopifnot(isBoolean(tooltipTransitions))
+  stopifnot(isBoolean(tooltipShadow))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -356,7 +374,8 @@ hMultiBarChart <- function(
     "xAxisTickFormat"         = xAxisTickFormat,
     "xLabelsFontSize"         = xLabelsFontSize,
     "yLabelsFontSize"         = yLabelsFontSize,
-    "showValues"              = showValues
+    "showValues"              = showValues,
+    "tooltipFormatters"       = tooltipFormatters
   )
 
   # create widget
@@ -403,6 +422,7 @@ hMultiBarChart <- function(
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
 #'   instead of the left
+#' @template tooltipFormattersTemplate
 #' @param tooltipTransitions Boolean, whether to style the tooltip with a
 #'   fade effect
 #' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
@@ -440,6 +460,7 @@ lineChart <- function(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
   width = NULL, height = NULL, elementId = NULL
@@ -481,6 +502,25 @@ lineChart <- function(
   if(!is.null(xRange)) xRange <- as.list(unname(xRange))
   if(!is.null(yRange)) yRange <- as.list(unname(yRange))
   stopifnot(isBoolean(rightAlignYaxis))
+  stopifnot(is.list(tooltipFormatters))
+  formatters <- names(tooltipFormatters)
+  if(any(formatters %notin% c("value", "header", "key"))){
+    stop(
+      "Invalid names in 'tooltipFormatters' list.",
+      call. = TRUE
+    )
+  }
+  tooltipFormatters <- dropNulls(tooltipFormatters)
+  areJS <- all(vapply(tooltipFormatters, isJS, logical(1L)))
+  if(!areJS){
+    stop(
+      "Invalid 'tooltipFormatters' list. ",
+      "Each tooltip formatter must be created with the `JS` function.",
+      call. = TRUE
+    )
+  }
+  stopifnot(isBoolean(tooltipTransitions))
+  stopifnot(isBoolean(tooltipShadow))
 
   # forward options using x
   x <- list(
@@ -499,7 +539,8 @@ lineChart <- function(
     "interpolate"             = interpolate,
     "xRange"                  = xRange,
     "yRange"                  = yRange,
-    "rightAlignYaxis"         = rightAlignYaxis
+    "rightAlignYaxis"         = rightAlignYaxis,
+    "tooltipFormatters"       = tooltipFormatters
   )
 
   # create widget
@@ -547,6 +588,7 @@ lineChart <- function(
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
 #'   instead of the left
+#' @template tooltipFormattersTemplate
 #' @param tooltipTransitions Boolean, whether to style the tooltip with a
 #'   fade effect
 #' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
@@ -585,6 +627,7 @@ lineFocusChart <- function(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
   width = NULL, height = NULL, elementId = NULL
@@ -626,6 +669,23 @@ lineFocusChart <- function(
   if(!is.null(xRange)) xRange <- as.list(unname(xRange))
   if(!is.null(yRange)) yRange <- as.list(unname(yRange))
   stopifnot(isBoolean(rightAlignYaxis))
+  stopifnot(is.list(tooltipFormatters))
+  formatters <- names(tooltipFormatters)
+  if(any(formatters %notin% c("value", "header", "key"))){
+    stop(
+      "Invalid names in 'tooltipFormatters' list.",
+      call. = TRUE
+    )
+  }
+  tooltipFormatters <- dropNulls(tooltipFormatters)
+  areJS <- all(vapply(tooltipFormatters, isJS, logical(1L)))
+  if(!areJS){
+    stop(
+      "Invalid 'tooltipFormatters' list. ",
+      "Each tooltip formatter must be created with the `JS` function.",
+      call. = TRUE
+    )
+  }
   stopifnot(isBoolean(tooltipTransitions))
   stopifnot(isBoolean(tooltipShadow))
 
@@ -646,7 +706,8 @@ lineFocusChart <- function(
     "interpolate"             = interpolate,
     "xRange"                  = xRange,
     "yRange"                  = yRange,
-    "rightAlignYaxis"         = rightAlignYaxis
+    "rightAlignYaxis"         = rightAlignYaxis,
+    "tooltipFormatters"       = tooltipFormatters
   )
 
   # create widget

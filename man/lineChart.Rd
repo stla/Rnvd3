@@ -20,6 +20,7 @@ lineChart(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
   width = NULL,
@@ -71,6 +72,16 @@ y-axis}
 
 \item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
 instead of the left}
+
+\item{tooltipFormatters}{formatters for the tooltip; each formatter must
+be \code{NULL} for the default formatting, otherwise a JavaScript function
+created with \code{\link{JS}}; there are three possible formatters
+(see the example):
+\describe{
+  \item{value}{formatter for the y-value displayed in the tooltip}
+  \item{header}{formatter for the tooltip header (this is the x-value)}
+  \item{key}{formatter for the value of the 'by' variable}
+}}
 
 \item{tooltipTransitions}{Boolean, whether to style the tooltip with a
 fade effect}
