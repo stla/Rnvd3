@@ -30,6 +30,10 @@ isUnnamedList <- function(x){
   is.list(x) && is.null(names(x))
 }
 
+isJS <- function(x){
+  inherits(x, "JS_EVAL")
+}
+
 #' @importFrom grDevices col2rgb rgb
 #' @noRd
 color2hex <- function(color){

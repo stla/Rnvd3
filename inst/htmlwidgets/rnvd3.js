@@ -31,6 +31,19 @@ HTMLWidgets.widget({
               .useInteractiveGuideline(x.useInteractiveGuideline)
               .clipEdge(false); // ?
 
+              var tfvalue  = x.tooltipFormatters.value;
+              var tfheader = x.tooltipFormatters.header;
+              var tfkey    = x.tooltipFormatters.key;
+              if(tfvalue){
+                chart.tooltip.valueFormatter(tfvalue);
+              }
+              if(tfheader){
+                chart.tooltip.headerFormatter(tfheader);
+              }
+              if(tfkey){
+                chart.tooltip.keyFormatter(tfkey);
+              }
+
             //          if(x.title){
             //            chart.title(x.title).titleOffset(x.titleOffset);
             //          }

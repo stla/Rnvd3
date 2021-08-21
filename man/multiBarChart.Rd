@@ -25,6 +25,7 @@ multiBarChart(
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   legendTitle = NULL,
   legendHjust = -20,
   width = NULL,
@@ -96,6 +97,16 @@ order to prevent overlapping}
 chart to use a guideline and floating tooltip instead of requiring the
 user to hover over specific hotspots}
 
+\item{tooltipFormatters}{formatters for the tooltip; each formatter must
+be \code{NULL} for the default formatting, otherwise a JavaScript function
+created with \code{\link{JS}}; there are three possible formatters
+(see the example):
+\describe{
+  \item{value}{formatter for the y-value displayed in the tooltip}
+  \item{header}{formatter for the tooltip header (this is the x-value)}
+  \item{key}{formatter for the value of the 'by' variable}
+}}
+
 \item{legendTitle}{a title for the legend, or \code{NULL} for no title}
 
 \item{legendHjust}{horizontal adjustment of the legend title}
@@ -118,12 +129,32 @@ In Shiny, you can style the axis titles with the help of CSS; see the
 }
 \examples{
 library(Rnvd3)
+library(Rnvd3)
 dat <- reshape2::melt(
   apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
 )
-multiBarChart(dat, Count ~ Eye, by = "Hair")
+multiBarChart(
+  dat, Count ~ Eye, "Hair",
+  tooltipFormatters = list(
+    value = JS(
+      "function(x){",
+      "  return '<span style=\"color:red;\">' + x + '</span>';",
+      "}"
+    ),
+    header = JS(
+      "function(x){",
+      "  return '<span style=\"color:green;\">' + x + '</span>';",
+      "}"
+    ),
+    key = JS(
+      "function(x){",
+      "  return '<i style=\"color:blue;\">' + x + '</i>';",
+      "}"
+    )
+  )
+)
 
-# style with CSS
+# style axis titles with CSS ####
 library(htmlwidgets)
 library(htmltools)
 

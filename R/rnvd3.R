@@ -45,6 +45,15 @@
 #' @param useInteractiveGuideline Boolean, other kind of tooltips: sets the
 #'   chart to use a guideline and floating tooltip instead of requiring the
 #'   user to hover over specific hotspots
+#' @param tooltipFormatters formatters for the tooltip; each formatter must
+#'   be \code{NULL} for the default formatting, otherwise a JavaScript function
+#'   created with \code{\link{JS}}; there are three possible formatters
+#'   (see the example):
+#'   \describe{
+#'     \item{value}{formatter for the y-value displayed in the tooltip}
+#'     \item{header}{formatter for the tooltip header (this is the x-value)}
+#'     \item{key}{formatter for the value of the 'by' variable}
+#'   }
 #' @param legendTitle a title for the legend, or \code{NULL} for no title
 #' @param legendHjust horizontal adjustment of the legend title
 #' @param width width of the chart container, must be a valid CSS measure
@@ -61,12 +70,32 @@
 #' @export
 #'
 #' @examples library(Rnvd3)
+#' library(Rnvd3)
 #' dat <- reshape2::melt(
 #'   apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
 #' )
-#' multiBarChart(dat, Count ~ Eye, by = "Hair")
+#' multiBarChart(
+#'   dat, Count ~ Eye, "Hair",
+#'   tooltipFormatters = list(
+#'     value = JS(
+#'       "function(x){",
+#'       "  return '<span style=\"color:red;\">' + x + '</span>';",
+#'       "}"
+#'     ),
+#'     header = JS(
+#'       "function(x){",
+#'       "  return '<span style=\"color:green;\">' + x + '</span>';",
+#'       "}"
+#'     ),
+#'     key = JS(
+#'       "function(x){",
+#'       "  return '<i style=\"color:blue;\">' + x + '</i>';",
+#'       "}"
+#'     )
+#'   )
+#' )
 #'
-#' # style with CSS
+#' # style axis titles with CSS ####
 #' library(htmlwidgets)
 #' library(htmltools)
 #'
@@ -108,6 +137,7 @@ multiBarChart <- function(
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
+  tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   legendTitle = NULL,
   legendHjust = -20,
   width = NULL, height = NULL, elementId = NULL
@@ -133,6 +163,23 @@ multiBarChart <- function(
   stopifnot(isNumber(legendHjust))
   xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
   yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
+  stopifnot(is.list(tooltipFormatters))
+  formatters <- names(tooltipFormatters)
+  if(any(formatters %notin% c("value", "header", "key"))){
+    stop(
+      "Invalid names in 'tooltipFormatters' list.",
+      call. = TRUE
+    )
+  }
+  tooltipFormatters <- dropNulls(tooltipFormatters)
+  areJS <- all(vapply(tooltipFormatters, isJS, logical(1L)))
+  if(!areJS){
+    stop(
+      "Invalid 'tooltipFormatters' list. ",
+      "Each tooltip formatter must be created with the `JS` function.",
+      call. = TRUE
+    )
+  }
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -167,6 +214,7 @@ multiBarChart <- function(
     "staggerLabels"           = staggerLabels,
     "wrapLabels"              = wrapLabels,
     "useInteractiveGuideline" = useInteractiveGuideline,
+    "tooltipFormatters"       = tooltipFormatters,
     "legendTitle"             = legendTitle,
     "legendHjust"             = legendHjust
   )
