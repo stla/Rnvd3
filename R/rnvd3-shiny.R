@@ -28,11 +28,24 @@
 #' )
 #'
 #' CSS <- HTML(
-#'   ".nvd3 .nv-axis.nv-x text.nv-axislabel,
+#'   "/* style axis titles */
+#'   .nvd3 .nv-axis.nv-x text.nv-axislabel,
 #'    .nvd3 .nv-axis.nv-y text.nv-axislabel {
 #'      font-size: 3rem;
 #'      fill: red;
-#'   }"
+#'   }
+#'   /* style the tooltip */
+#'   .nvtooltip .value {
+#'     color: red;
+#'   }
+#'   .nvtooltip .x-value {
+#'     color: green;
+#'   }
+#'   .nvtooltip .key {
+#'     color: blue;
+#'     font-style: italic;
+#'   }
+#'   "
 #' )
 #'
 #' ui <- fluidPage(

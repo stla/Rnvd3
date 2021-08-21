@@ -132,11 +132,14 @@ HTMLwidget displaying a multibar chart.
 }
 \note{
 In Shiny, you can style the axis titles with the help of CSS; see the
-  \link[=rnvd3Output]{shiny example}.
+  \link[=rnvd3Output]{shiny example}. It is also possible outside of Shiny;
+  see the second example below, where we set the CSS with the help of
+  \code{\link[htmlwidgets:prependContent]{prependContent}}.
 }
 \examples{
 library(Rnvd3)
-library(Rnvd3)
+# in this example we use the tooltip formatters for styling only; we could
+# achieve the same result with the help of CSS
 dat <- reshape2::melt(
   apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
 )
