@@ -49,7 +49,7 @@ HTMLWidgets.widget({
               .rotateLabels(x.rotateLabels)
               .groupSpacing(x.groupSpacing)
               .rightAlignYAxis(x.rightAlignYaxis)
-              .reduceXTicks(false)
+              .reduceXTicks(x.reduceXticks)
               .staggerLabels(x.staggerLabels)
               .wrapLabels(x.wrapLabels)
               .useInteractiveGuideline(x.useInteractiveGuideline)

@@ -38,6 +38,8 @@
 #'   y-axis
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
 #'   instead of the left
+#' @param reduceXticks Boolean, whether to reduce the ticks on the x-axis so
+#'   that the x-labels are less likely to overlap
 #' @param staggerLabels Boolean, whether to make the x-labels stagger at
 #'   different distances from the axis so they're less likely to overlap
 #' @param wrapLabels Boolean, whether to split long x-labels by new lines in
@@ -134,6 +136,7 @@ multiBarChart <- function(
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   rightAlignYaxis = FALSE,
+  reduceXticks = FALSE,
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
@@ -159,6 +162,7 @@ multiBarChart <- function(
   stopifnot(isBoolean(yAxisShowMaxMin))
   stopifnot(isString(yAxisTickFormat))
   stopifnot(isBoolean(rightAlignYaxis))
+  stopifnot(isBoolean(reduceXticks))
   stopifnot(isBoolean(staggerLabels))
   stopifnot(isBoolean(wrapLabels))
   stopifnot(isBoolean(useInteractiveGuideline))
@@ -220,6 +224,7 @@ multiBarChart <- function(
     "xLabelsFontSize"         = xLabelsFontSize,
     "yLabelsFontSize"         = yLabelsFontSize,
     "rightAlignYaxis"         = rightAlignYaxis,
+    "reduceXticks"            = reduceXticks,
     "staggerLabels"           = staggerLabels,
     "wrapLabels"              = wrapLabels,
     "useInteractiveGuideline" = useInteractiveGuideline,

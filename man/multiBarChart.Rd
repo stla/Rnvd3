@@ -22,6 +22,7 @@ multiBarChart(
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   rightAlignYaxis = FALSE,
+  reduceXticks = FALSE,
   staggerLabels = FALSE,
   wrapLabels = FALSE,
   useInteractiveGuideline = FALSE,
@@ -89,6 +90,9 @@ y-axis}
 
 \item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
 instead of the left}
+
+\item{reduceXticks}{Boolean, whether to reduce the ticks on the x-axis so
+that the x-labels are less likely to overlap}
 
 \item{staggerLabels}{Boolean, whether to make the x-labels stagger at
 different distances from the axis so they're less likely to overlap}
