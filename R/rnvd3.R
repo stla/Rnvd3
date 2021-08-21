@@ -526,13 +526,17 @@ lineChart <- function(
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
 #'   instead of the left
+#' @param tooltipTransitions Boolean, whether to style the tooltip with a
+#'   fade effect
+#' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
 #' @param width width of the chart container, must be a valid CSS measure
 #' @param height height of the chart container, must be a valid CSS measure
 #' @param elementId an id for the chart container, usually useless
 #'
 #' @return A HTML widget displaying a line chart.
 #' @export
-#' @importFrom htmltools validateCssUnit
+#' @importFrom htmltools validateCssUnit htmlDependency
+#' @importFrom utils packageVersion
 #'
 #' @examples library(Rnvd3)
 #'
@@ -560,6 +564,8 @@ lineFocusChart <- function(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   width = NULL, height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
@@ -599,6 +605,34 @@ lineFocusChart <- function(
   if(!is.null(xRange)) xRange <- as.list(unname(xRange))
   if(!is.null(yRange)) yRange <- as.list(unname(yRange))
   stopifnot(isBoolean(rightAlignYaxis))
+  stopifnot(isBoolean(tooltipTransitions))
+  stopifnot(isBoolean(tooltipShadow))
+
+  dependencies <- NULL
+  if(tooltipTransitions){
+    dependencies <- list(
+      htmlDependency(
+        name = "withTranstions",
+        version = as.character(packageVersion("Rnvd3")),
+        src = file.path("htmlwidgets", "css"),
+        stylesheet = "withTransitions.css",
+        package = "Rnvd3",
+        all_files = FALSE
+      )
+    )
+  }
+  if(tooltipShadow){
+    dependencies <- c(dependencies, list(
+      htmlDependency(
+        name = "withShadow",
+        version = as.character(packageVersion("Rnvd3")),
+        src = file.path("htmlwidgets", "css"),
+        stylesheet = "with3dShadow.css",
+        package = "Rnvd3",
+        all_files = FALSE
+      )
+    ))
+  }
 
   # forward options using x
   x <- list(
@@ -627,6 +661,7 @@ lineFocusChart <- function(
     width = width,
     height = height,
     package = "Rnvd3",
+    dependencies = dependencies,
     elementId = elementId
   )
 }

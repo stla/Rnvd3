@@ -20,6 +20,8 @@ lineFocusChart(
   xRange = NULL,
   yRange = NULL,
   rightAlignYaxis = FALSE,
+  tooltipTransitions = TRUE,
+  tooltipShadow = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -69,6 +71,11 @@ y-axis}
 
 \item{rightAlignYaxis}{Boolean, whether to put the y-axis on the right side
 instead of the left}
+
+\item{tooltipTransitions}{Boolean, whether to style the tooltip with a
+fade effect}
+
+\item{tooltipShadow}{Boolean, whether to style the tooltip with a shadow}
 
 \item{width}{width of the chart container, must be a valid CSS measure}
 

@@ -1,0 +1,4 @@
+.nvtooltip {
+  transition: opacity 500ms linear;
+  transition-delay: 500ms;
+}

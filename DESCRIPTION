@@ -16,7 +16,8 @@ Imports:
   viridisLite,
   htmltools,
   jsonlite,
-  grDevices
+  grDevices,
+  utils
 Suggests:
   reshape2,
   shiny

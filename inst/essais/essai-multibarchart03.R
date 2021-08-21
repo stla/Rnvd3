@@ -5,17 +5,17 @@ dat <- reshape2::melt(
 multiBarChart(
   dat, Count ~ Eye, "Hair",
   tooltipFormatters = list(
-    value = JS(
+    value = JS( #.value
       "function(x){",
       "  return '<span style=\"color:red;\">' + x + '</span>';",
       "}"
     ),
-    header = JS(
+    header = JS( #.x-value
       "function(x){",
       "  return '<span style=\"color:green;\">' + x + '</span>';",
       "}"
     ),
-    key = JS(
+    key = JS( #.key
       "function(x){",
       "  return '<i style=\"color:blue;\">' + x + '</i>';",
       "}"

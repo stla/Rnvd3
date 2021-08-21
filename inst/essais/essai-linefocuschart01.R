@@ -7,4 +7,4 @@ dat2 <-
                 key = "Another sine wave", color = "red")
 dat <- list(dat1, dat2)
 
-lineFocusChart(dat, useInteractiveGuideline = FALSE)
+lineFocusChart(dat)
