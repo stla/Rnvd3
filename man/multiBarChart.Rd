@@ -28,9 +28,10 @@ multiBarChart(
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
+  radioButtonMode = FALSE,
   legendTitle = NULL,
   legendHjust = -20,
-  width = NULL,
+  width = "100\%",
   height = NULL,
   elementId = NULL
 )
@@ -113,6 +114,9 @@ created with \code{\link{JS}}; there are three possible formatters
 fade effect}
 
 \item{tooltipShadow}{Boolean, whether to style the tooltip with a shadow}
+
+\item{radioButtonMode}{Boolean, whether to authorize only one selection in
+the legend (i.e. only one level of the '\code{by}' variable)}
 
 \item{legendTitle}{a title for the legend, or \code{NULL} for no title}
 

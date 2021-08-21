@@ -49,6 +49,8 @@
 #' @param tooltipTransitions Boolean, whether to style the tooltip with a
 #'   fade effect
 #' @param tooltipShadow Boolean, whether to style the tooltip with a shadow
+#' @param radioButtonMode Boolean, whether to authorize only one selection in
+#'   the legend (i.e. only one level of the '\code{by}' variable)
 #' @param legendTitle a title for the legend, or \code{NULL} for no title
 #' @param legendHjust horizontal adjustment of the legend title
 #' @param width width of the chart container, must be a valid CSS measure
@@ -138,9 +140,10 @@ multiBarChart <- function(
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
+  radioButtonMode = FALSE,
   legendTitle = NULL,
   legendHjust = -20,
-  width = NULL, height = NULL, elementId = NULL
+  width = "100%", height = NULL, elementId = NULL
 ) {
   # stopifnot(is.null(title) || isString(title))
   # stopifnot(isNumber(titleOffset))
@@ -185,6 +188,7 @@ multiBarChart <- function(
   # }
   stopifnot(isBoolean(tooltipTransitions))
   stopifnot(isBoolean(tooltipShadow))
+  stopifnot(isBoolean(radioButtonMode))
 
   mbcData <- multiBarChartData(data, formula, by, palette)
   axisTitles <- attr(mbcData, "axisTitles")
@@ -220,6 +224,7 @@ multiBarChart <- function(
     "wrapLabels"              = wrapLabels,
     "useInteractiveGuideline" = useInteractiveGuideline,
     "tooltipFormatters"       = tooltipFormatters,
+    "radioButtonMode"         = radioButtonMode,
     "legendTitle"             = legendTitle,
     "legendHjust"             = legendHjust
   )
@@ -313,7 +318,7 @@ hMultiBarChart <- function(
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
 
-  width = NULL, height = NULL, elementId = NULL
+  width = "100%", height = NULL, elementId = NULL
 ) {
   stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
   stopifnot(is.null(yAxisTitle) || isString(yAxisTitle))
@@ -463,7 +468,7 @@ lineChart <- function(
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
-  width = NULL, height = NULL, elementId = NULL
+  width = "100%", height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
   stopifnot(isNamedList(margins))
@@ -630,7 +635,7 @@ lineFocusChart <- function(
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
-  width = NULL, height = NULL, elementId = NULL
+  width = "100%", height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
   stopifnot(isNamedList(margins))
@@ -725,6 +730,7 @@ lineFocusChart <- function(
 #' @importFrom htmltools tags
 #' @noRd
 widget_html.rnvd3 <- function(id, style, class, ...){
+  #s <- "position:absolute; top:10px; right:10px; bottom:10px; left:10px; "
   tags$div(
     id = id, class = class, style = style,
     tags$svg(style = "height: inherit; width: inherit")

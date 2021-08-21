@@ -23,7 +23,7 @@ lineChart(
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
-  width = NULL,
+  width = "100\%",
   height = NULL,
   elementId = NULL
 )

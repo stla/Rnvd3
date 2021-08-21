@@ -1,17 +1,40 @@
+function getStateForShiny(state, keys) {
+  var disabled = {};
+  for (var i = 0; i < keys.length; i++) {
+    disabled[keys[i]] = state.disabled[i];
+  }
+  return { stacked: state.stacked, disabled: disabled };
+}
+
+var inShiny = HTMLWidgets.shinyMode;
+
 HTMLWidgets.widget({
   name: "rnvd3",
 
   type: "output",
 
   factory: function (el, width, height) {
-    // TODO: define shared variables for this instance
+
+    var id_state = el.id + "_state";
 
     return {
       renderValue: function (x) {
-        var Data = JSON.parse(x.Data);
 
-        if (x.chart === "multibarchart") {
-          /* -------- multibarchart -------- */
+        var Data = JSON.parse(x.Data);
+        var keys = Data.map(function (x) {
+          return x.key;
+        });
+
+        if(inShiny){
+          var disabled = {};
+          for (var i = 0; i < keys.length; i++) {
+            disabled[keys[i]] = false;
+          }
+          var shinyState = {stacked: false, disabled: disabled};
+          Shiny.setInputValue(id_state, shinyState);
+        }
+
+        if (x.chart === "multibarchart") { /* -------- multibarchart -------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarChart()
@@ -48,6 +71,10 @@ HTMLWidgets.widget({
             //          if(x.title){
             //            chart.title(x.title).titleOffset(x.titleOffset);
             //          }
+            if (x.radioButtonMode) {
+              chart.legend.radioButtonMode(true);
+              chart.showControls(false);
+            }
 
             chart.xAxis
               .axisLabel(x.xAxisTitle)
@@ -81,10 +108,16 @@ HTMLWidgets.widget({
                 .text(x.legendTitle);
             }
 
+            if(inShiny){
+              chart.dispatch.on("stateChange", function (state) {
+                var shinyState = getStateForShiny(state, keys);
+                Shiny.setInputValue(id_state, shinyState);
+              });
+            }
+
             return chart;
           });
-        } else if (x.chart === "horizontalmultibarchart") {
-          /* hmultibarcart */
+        } else if (x.chart === "horizontalmultibarchart") { /* hmultibarcart */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -137,8 +170,7 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "linechart") {
-          /* -------- linechart --------- */
+        } else if (x.chart === "linechart") { /* -------- linechart --------- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
@@ -194,8 +226,7 @@ HTMLWidgets.widget({
             });
             return chart;
           });
-        } else if (x.chart === "linefocuschart") {
-          /* --- linefocuschart --- */
+        } else if (x.chart === "linefocuschart") {  /* --- linefocuschart --- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineWithFocusChart()

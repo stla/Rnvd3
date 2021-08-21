@@ -42,7 +42,10 @@ dat <- reshape2::melt(
 )
 
 CSS <- HTML(
-  "/* style axis titles */
+  "body {
+    overflow: overlay;
+  }
+  /* style axis titles */
   .nvd3 .nv-axis.nv-x text.nv-axislabel,
    .nvd3 .nv-axis.nv-y text.nv-axislabel {
      font-size: 3rem;
@@ -65,7 +68,17 @@ CSS <- HTML(
 ui <- fluidPage(
   tags$head(tags$style(CSS)),
   br(),
-  rnvd3Output("mychart", width = "600px", height = "500px")
+  fluidRow(
+    column(
+      9,
+      rnvd3Output("mychart", width = "100\%", height = "500px")
+    ),
+    column(
+      3,
+      tags$h3("Chart state:"),
+      verbatimTextOutput("state")
+    )
+  )
 )
 
 server <- function(input, output, session){
@@ -75,6 +88,10 @@ server <- function(input, output, session){
       dat, Count ~ Eye, "Hair", palette = "viridis",
       xLabelsFontSize = "2rem", yLabelsFontSize = "2rem"
     )
+  })
+
+  output[["state"]] <- renderPrint({
+    input[["mychart_state"]]
   })
 
 }
