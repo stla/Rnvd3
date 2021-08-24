@@ -14,27 +14,26 @@ HTMLWidgets.widget({
   type: "output",
 
   factory: function (el, width, height) {
-
     var id_state = el.id + "_state";
 
     return {
       renderValue: function (x) {
-
         var Data = JSON.parse(x.Data);
         var keys = Data.map(function (x) {
           return x.key;
         });
 
-        if(inShiny){
+        if (inShiny) {
           var disabled = {};
           for (var i = 0; i < keys.length; i++) {
             disabled[keys[i]] = false;
           }
-          var shinyState = {stacked: false, disabled: disabled};
+          var shinyState = { stacked: false, disabled: disabled };
           Shiny.setInputValue(id_state, shinyState);
         }
 
-        if (x.chart === "multibarchart") { /* -------- multibarchart -------- */
+        if (x.chart === "multibarchart") {
+          /* -------- multibarchart -------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarChart()
@@ -108,7 +107,7 @@ HTMLWidgets.widget({
                 .text(x.legendTitle);
             }
 
-            if(inShiny){
+            if (inShiny) {
               chart.dispatch.on("stateChange", function (state) {
                 var shinyState = getStateForShiny(state, keys);
                 Shiny.setInputValue(id_state, shinyState);
@@ -117,7 +116,8 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "horizontalmultibarchart") { /* hmultibarcart */
+        } else if (x.chart === "horizontalmultibarchart") {
+          /* hmultibarcart */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -170,7 +170,18 @@ HTMLWidgets.widget({
 
             return chart;
           });
-        } else if (x.chart === "linechart") { /* -------- linechart --------- */
+        } else if (x.chart === "linechart") {
+          /* -------- linechart --------- */
+          var isDate = x.isDate;
+          if (isDate) {
+            for (var k = 0; k < Data.length; k++) {
+              var values = Data[k].values;
+              for (var i = 0; i < values.length; i++) {
+                var ymd = values[i];
+                values[i].x = new Date(ymd.year, ymd.month - 1, ymd.day);
+              }
+            }
+          }
           nv.addGraph(function () {
             var chart = nv.models
               .lineChart()
@@ -206,7 +217,11 @@ HTMLWidgets.widget({
 
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
-              .tickFormat(d3.format(x.xAxisTickFormat))
+              .tickFormat(function (d) {
+                isDate
+                  ? d3.time.format(x.yAxisTickFormat)(new Date(d))
+                  : d3.format(x.yAxisTickFormat)(d);
+              })
               .fontSize(x.xLabelsFontSize);
 
             chart.yAxis //Chart y-axis settings
@@ -226,7 +241,8 @@ HTMLWidgets.widget({
             });
             return chart;
           });
-        } else if (x.chart === "linefocuschart") {  /* --- linefocuschart --- */
+        } else if (x.chart === "linefocuschart") {
+          /* --- linefocuschart --- */
           nv.addGraph(function () {
             var chart = nv.models
               .lineWithFocusChart()

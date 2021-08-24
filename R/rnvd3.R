@@ -476,6 +476,7 @@ lineChart <- function(
   width = "100%", height = NULL, elementId = NULL
 ){
   lcData <- makeLineChartData(data)
+  isDate <- attr(lcData, "isDate")
   stopifnot(isNamedList(margins))
   stopifnot(all(names(margins) %in% c("t", "r", "b", "l")))
   margins <- dropNulls(
@@ -536,6 +537,7 @@ lineChart <- function(
   x <- list(
     "chart"                   = "linechart",
     "Data"                    = lcData,
+    "isDate"                  = isDate,
     "xAxisTitle"              = xAxisTitle,
     "yAxisTitle"              = yAxisTitle,
     "margins"                 = margins,
