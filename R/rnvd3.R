@@ -493,8 +493,9 @@ lineChart <- function(
   tooltipShadow = TRUE,
   width = "100%", height = NULL, elementId = NULL
 ){
-  lcData <- makeLineChartData(data)
-  isDate <- attr(lcData, "isDate")
+  lcData    <- makeLineChartData(data)
+  isDate    <- attr(lcData, "isDate")
+  isPOSIXct <- attr(lcData, "isPOSIXct")
   stopifnot(isNamedList(margins))
   stopifnot(all(names(margins) %in% c("t", "r", "b", "l")))
   margins <- dropNulls(
@@ -556,6 +557,7 @@ lineChart <- function(
     "chart"                   = "linechart",
     "Data"                    = lcData,
     "isDate"                  = isDate,
+    "isPOSIXct"               = isPOSIXct,
     "xAxisTitle"              = xAxisTitle,
     "yAxisTitle"              = yAxisTitle,
     "margins"                 = margins,
@@ -664,7 +666,9 @@ lineFocusChart <- function(
   tooltipShadow = TRUE,
   width = "100%", height = NULL, elementId = NULL
 ){
-  lcData <- makeLineChartData(data)
+  lcData    <- makeLineChartData(data)
+  isDate    <- attr(lcData, "isDate")
+  isPOSIXct <- attr(lcData, "isPOSIXct")
   stopifnot(isNamedList(margins))
   stopifnot(all(names(margins) %in% c("t", "r", "b", "l")))
   margins <- dropNulls(
@@ -725,6 +729,8 @@ lineFocusChart <- function(
   x <- list(
     "chart"                   = "linefocuschart",
     "Data"                    = lcData,
+    "isDate"                  = isDate,
+    "isPOSIXct"               = isPOSIXct,
     "xAxisTitle"              = xAxisTitle,
     "yAxisTitle"              = yAxisTitle,
     "margins"                 = margins,

@@ -19,6 +19,7 @@ lineChartData <- function(x, y, key, color, area = FALSE){
   color <- validateColor(color)
   stopifnot(isBoolean(area))
   isDate <- is.Date(x)
+  isPOSIXct <- is.POSIXct(x)
   if(isDate){
     out <- list(
       "values" = data.frame(
@@ -26,6 +27,21 @@ lineChartData <- function(x, y, key, color, area = FALSE){
         "month" = month(x),
         "day"   = day(x),
         "y"     = y
+      ),
+      "key"    = key,
+      "color"  = color,
+      "area"   = area
+    )
+  }else if(isPOSIXct){
+    out <- list(
+      "values" = data.frame(
+        "year"   = year(x),
+        "month"  = month(x),
+        "day"    = day(x),
+        "hour"   = hour(x),
+        "minute" = minute(x),
+        "second" = second(x),
+        "y"      = y
       ),
       "key"    = key,
       "color"  = color,
@@ -41,6 +57,7 @@ lineChartData <- function(x, y, key, color, area = FALSE){
   }
   attr(out, "linechartdata") <- TRUE
   attr(out, "isDate") <- isDate
+  attr(out, "isPOSIXct") <- isPOSIXct
   out
 }
 
@@ -51,7 +68,8 @@ check_lineChartData <- function(data){
       return(FALSE)
     }
     out <- TRUE
-    attr(out, "isDate") <- attr(data, "isDate")
+    attr(out, "isDate")    <- attr(data, "isDate")
+    attr(out, "isPOSIXct") <- attr(data, "isPOSIXct")
     return(out)
   }
   if(isUnnamedList(data)){
@@ -67,8 +85,15 @@ check_lineChartData <- function(data){
     if(!good){
       return(FALSE)
     }
+    attrs <- unlist(lapply(data, attr, which = "isPOSIXct"))
+    good <- isTRUE(all.equal(attrs, rep(TRUE, n))) ||
+      isTRUE(all.equal(attrs, rep(FALSE, n)))
+    if(!good){
+      return(FALSE)
+    }
     out <- TRUE
-    attr(out, "isDate") <- attr(data[[1L]], "isDate")
+    attr(out, "isDate")    <- attr(data[[1L]], "isDate")
+    attr(out, "isPOSIXct") <- attr(data[[1L]], "isPOSIXct")
     return(out)
   }
   return(FALSE)
@@ -85,6 +110,7 @@ makeLineChartData <- function(data){
     data <- list(data)
   }
   out <- as.character(toJSON(data, auto_unbox = TRUE, digits = NA))
-  attr(out, "isDate") <- attr(check, "isDate")
+  attr(out, "isDate")    <- attr(check, "isDate")
+  attr(out, "isPOSIXct") <- attr(check, "isPOSIXct")
   out
 }

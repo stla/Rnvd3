@@ -172,13 +172,25 @@ HTMLWidgets.widget({
           });
         } else if (x.chart === "linechart") {
           /* -------------------------- linechart --------------------------- */
-          var isDate = x.isDate;
+          var isDate     = x.isDate;
+          var isPOSIXct  = x.isPOSIXct;
+          var isDateTime = isDate || isPOSIXct;
           if (isDate) {
             for (var k = 0; k < Data.length; k++) {
               var values = Data[k].values;
               for (var i = 0; i < values.length; i++) {
                 var ymd = values[i];
                 values[i].x = new Date(ymd.year, ymd.month - 1, ymd.day);
+              }
+            }
+          }else if(isPOSIXct) {
+            for (var k = 0; k < Data.length; k++) {
+              var values = Data[k].values;
+              for (var i = 0; i < values.length; i++) {
+                var v = values[i];
+                values[i].x = new Date(
+                  v.year, v.month - 1, v.day, v.hour, v.minute, v.second
+                );
               }
             }
           }
@@ -218,7 +230,7 @@ HTMLWidgets.widget({
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
               .tickFormat(function (d) {
-                return isDate
+                return isDateTime
                   ? d3.time.format(x.xAxisTickFormat)(new Date(d))
                   : d3.format(x.xAxisTickFormat)(d);
               })
@@ -243,13 +255,25 @@ HTMLWidgets.widget({
           });
         } else if (x.chart === "linefocuschart") {
           /* ----------------------- linefocuschart ------------------------- */
-          var isDate = x.isDate;
+          var isDate     = x.isDate;
+          var isPOSIXct  = x.isPOSIXct;
+          var isDateTime = isDate || isPOSIXct;
           if (isDate) {
             for (var k = 0; k < Data.length; k++) {
               var values = Data[k].values;
               for (var i = 0; i < values.length; i++) {
                 var ymd = values[i];
                 values[i].x = new Date(ymd.year, ymd.month - 1, ymd.day);
+              }
+            }
+          }else if(isPOSIXct) {
+            for (var k = 0; k < Data.length; k++) {
+              var values = Data[k].values;
+              for (var i = 0; i < values.length; i++) {
+                var v = values[i];
+                values[i].x = new Date(
+                  v.year, v.month - 1, v.day, v.hour, v.minute, v.second
+                );
               }
             }
           }
@@ -289,7 +313,7 @@ HTMLWidgets.widget({
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
               .tickFormat(function (d) {
-                return isDate
+                return isDateTime
                   ? d3.time.format(x.xAxisTickFormat)(new Date(d))
                   : d3.format(x.xAxisTickFormat)(d);
               })
