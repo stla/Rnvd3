@@ -21,7 +21,8 @@ Imports:
   htmltools,
   jsonlite,
   grDevices,
-  utils
+  utils,
+  lubridate
 Suggests:
   reshape2,
   shiny

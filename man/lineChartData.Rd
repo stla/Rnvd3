@@ -7,7 +7,7 @@
 lineChartData(x, y, key, color, area = FALSE)
 }
 \arguments{
-\item{x}{values on the x-axis}
+\item{x}{values on the x-axis, numeric or date type}
 
 \item{y}{values on the y-axis}
 
