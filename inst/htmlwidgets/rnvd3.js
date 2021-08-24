@@ -218,9 +218,9 @@ HTMLWidgets.widget({
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
               .tickFormat(function (d) {
-                isDate
-                  ? d3.time.format(x.yAxisTickFormat)(new Date(d))
-                  : d3.format(x.yAxisTickFormat)(d);
+                return isDate
+                  ? d3.time.format(x.xAxisTickFormat)(new Date(d))
+                  : d3.format(x.xAxisTickFormat)(d);
               })
               .fontSize(x.xLabelsFontSize);
 
