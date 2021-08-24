@@ -171,7 +171,7 @@ HTMLWidgets.widget({
             return chart;
           });
         } else if (x.chart === "linechart") {
-          /* -------- linechart --------- */
+          /* -------------------------- linechart --------------------------- */
           var isDate = x.isDate;
           if (isDate) {
             for (var k = 0; k < Data.length; k++) {
@@ -242,7 +242,17 @@ HTMLWidgets.widget({
             return chart;
           });
         } else if (x.chart === "linefocuschart") {
-          /* --- linefocuschart --- */
+          /* ----------------------- linefocuschart ------------------------- */
+          var isDate = x.isDate;
+          if (isDate) {
+            for (var k = 0; k < Data.length; k++) {
+              var values = Data[k].values;
+              for (var i = 0; i < values.length; i++) {
+                var ymd = values[i];
+                values[i].x = new Date(ymd.year, ymd.month - 1, ymd.day);
+              }
+            }
+          }
           nv.addGraph(function () {
             var chart = nv.models
               .lineWithFocusChart()
@@ -278,7 +288,11 @@ HTMLWidgets.widget({
 
             chart.xAxis //Chart x-axis settings
               .axisLabel(x.xAxisTitle)
-              .tickFormat(d3.format(x.xAxisTickFormat))
+              .tickFormat(function (d) {
+                return isDate
+                  ? d3.time.format(x.xAxisTickFormat)(new Date(d))
+                  : d3.format(x.xAxisTickFormat)(d);
+              })
               .fontSize(x.xLabelsFontSize);
 
             chart.yAxis //Chart y-axis settings

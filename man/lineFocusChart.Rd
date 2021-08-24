@@ -29,8 +29,8 @@ lineFocusChart(
 )
 }
 \arguments{
-\item{data}{data used fir the chart; it must be a list created with
-\code{\link{lineChartData}}, or a list os such lists (for multiple lines)}
+\item{data}{data used for the chart; it must be a list created with
+\code{\link{lineChartData}}, or a list of such lists (for multiple lines)}
 
 \item{xAxisTitle}{string, the title of the x-axis}
 
@@ -45,7 +45,9 @@ to change just those parts}
 
 \item{useInteractiveGuideline}{Boolean, a guideline and synchronized tooltips}
 
-\item{xAxisTickFormat}{a d3 formatting string for the ticks on the x-axis}
+\item{xAxisTickFormat}{a d3 formatting string for the ticks on the x-axis;
+a d3 \emph{time} formatting string if the x-values are dates, see
+\href{https://github.com/d3/d3-time-format/blob/v3.0.0/README.md#locale_format}{d3.time.format}}
 
 \item{yAxisTickFormat}{a d3 formatting string for the ticks on the y-axis}
 
