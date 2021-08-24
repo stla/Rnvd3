@@ -2,7 +2,11 @@ Package: Rnvd3
 Type: Package
 Title: An Incomplete Wrapper of the 'nvd3' JavaScript Library
 Version: 0.1.0
-Author: Stéphane laurent
+Authors@R: c(
+    person("Stéphane", "Laurent", email = "laurent_step@outlook.fr", role = c("aut", "cre")),
+    person("Novus Partners, Inc.", role = "cph", comment = "'nvd3.js' library"),
+    person("Michael", "Bostock", role = "cph", comment = "'d3.js' library")
+  )
 Maintainer: Stéphane laurent <laurent_step@outlook.fr>
 Description: Creates JavaScript charts with the 'nvd3' library. So far only the multibar chart, the horizontal multibar chart, the line chart and the line chart with focus are available.
 License: GPL-3
