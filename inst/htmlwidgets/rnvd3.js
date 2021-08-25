@@ -266,6 +266,12 @@ HTMLWidgets.widget({
                 values[i].x = new Date(ymd.year, ymd.month - 1, ymd.day);
               }
             }
+            if(x.xRange){
+              var x1 = x.x1;
+              var x2 = x.x2;
+              x.xRange[0] = new Date(x1.year, x1.month - 1, x1.day);
+              x.xRange[1] = new Date(x2.year, x2.month - 1, x2.day);
+            }
           }else if(isPOSIXct) {
             for (var k = 0; k < Data.length; k++) {
               var values = Data[k].values;
@@ -276,7 +282,18 @@ HTMLWidgets.widget({
                 );
               }
             }
+            if(x.xRange){
+              var x1 = x.x1;
+              var x2 = x.x2;
+              x.xRange[0] = new Date(
+                x1.year, x1.month - 1, x1.day, x1.hour, x1.minute, x1.second
+              );
+              x.xRange[1] = new Date(
+                x2.year, x2.month - 1, x2.day, x2.hour, x2.minute, x2.second
+              );
+            }
           }
+
           nv.addGraph(function () {
             var chart = nv.models
               .lineWithFocusChart()

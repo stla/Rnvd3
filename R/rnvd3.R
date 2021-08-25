@@ -445,6 +445,7 @@ hMultiBarChart <- function(
 #' @return A HTML widget displaying a line chart.
 #' @export
 #' @importFrom htmltools validateCssUnit
+#' @importFrom lubridate is.Date is.POSIXct year month day hour minute second
 #'
 #' @examples library(Rnvd3)
 #'
@@ -523,9 +524,53 @@ lineChart <- function(
       "basis-closed", "bundle", "cardinal", "cardinal-open", "cardinal-closed",
       "monotone")
   )
-  stopifnot(
-    is.null(xRange) || (is.numeric(xRange) && length(xRange) == 2L)
-  )
+  x1 <- x2 <- NULL
+  if(!is.null(xRange)){
+    stopifnot(length(xRange) == 2L)
+    if(isDate){
+      if(!is.Date(xRange)){
+        stop(
+          "The x values are dates but not the values of `xRange`.",
+          call. = TRUE
+        )
+      }
+      x1 <- list(
+        "year"  = year(xRange[1L]),
+        "month" = month(xRange[1L]),
+        "day"   = day(xRange[1L])
+      )
+      x2 <- list(
+        "year"  = year(xRange[2L]),
+        "month" = month(xRange[2L]),
+        "day"   = day(xRange[2L])
+      )
+    }else if(isPOSIXct){
+      if(!is.POSIXct(xRange)){
+        stop(
+          "The x values are datetimes but not the values of `xRange`.",
+          call. = TRUE
+        )
+      }
+      x1 <- list(
+        "year"   = year(xRange[1L]),
+        "month"  = month(xRange[1L]),
+        "day"    = day(xRange[1L]),
+        "hour"   = hour(xRange[1L]),
+        "minute" = minute(xRange[1L]),
+        "second" = second(xRange[1L])
+      )
+      x2 <- list(
+        "year"   = year(xRange[2L]),
+        "month"  = month(xRange[2L]),
+        "day"    = day(xRange[2L]),
+        "hour"   = hour(xRange[2L]),
+        "minute" = minute(xRange[2L]),
+        "second" = second(xRange[2L])
+      )
+    }else{
+      stopifnot(is.numeric(xRange))
+    }
+  }
   stopifnot(
     is.null(yRange) || (is.numeric(yRange) && length(yRange) == 2L)
   )
@@ -570,6 +615,8 @@ lineChart <- function(
     "legendPosition"          = legendPosition,
     "interpolate"             = interpolate,
     "xRange"                  = xRange,
+    "x1"                      = x1,
+    "x2"                      = x2,
     "yRange"                  = yRange,
     "rightAlignYaxis"         = rightAlignYaxis,
     "tooltipFormatters"       = tooltipFormatters
@@ -632,6 +679,7 @@ lineChart <- function(
 #'
 #' @return A HTML widget displaying a line chart with a focus tool.
 #' @export
+#' @importFrom lubridate is.Date is.POSIXct year month day hour minute second
 #' @importFrom htmltools validateCssUnit
 #' @importFrom utils packageVersion
 #'
@@ -696,9 +744,53 @@ lineFocusChart <- function(
       "basis-closed", "bundle", "cardinal", "cardinal-open", "cardinal-closed",
       "monotone")
   )
-  stopifnot(
-    is.null(xRange) || (is.numeric(xRange) && length(xRange) == 2L)
-  )
+  x1 <- x2 <- NULL
+  if(!is.null(xRange)){
+    stopifnot(length(xRange) == 2L)
+    if(isDate){
+      if(!is.Date(xRange)){
+        stop(
+          "The x values are dates but not the values of `xRange`.",
+          call. = TRUE
+        )
+      }
+      x1 <- list(
+        "year"  = year(xRange[1L]),
+        "month" = month(xRange[1L]),
+        "day"   = day(xRange[1L])
+      )
+      x2 <- list(
+        "year"  = year(xRange[2L]),
+        "month" = month(xRange[2L]),
+        "day"   = day(xRange[2L])
+      )
+    }else if(isPOSIXct){
+      if(!is.POSIXct(xRange)){
+        stop(
+          "The x values are datetimes but not the values of `xRange`.",
+          call. = TRUE
+        )
+      }
+      x1 <- list(
+        "year"   = year(xRange[1L]),
+        "month"  = month(xRange[1L]),
+        "day"    = day(xRange[1L]),
+        "hour"   = hour(xRange[1L]),
+        "minute" = minute(xRange[1L]),
+        "second" = second(xRange[1L])
+      )
+      x2 <- list(
+        "year"   = year(xRange[2L]),
+        "month"  = month(xRange[2L]),
+        "day"    = day(xRange[2L]),
+        "hour"   = hour(xRange[2L]),
+        "minute" = minute(xRange[2L]),
+        "second" = second(xRange[2L])
+      )
+    }else{
+      stopifnot(is.numeric(xRange))
+    }
+  }
   stopifnot(
     is.null(yRange) || (is.numeric(yRange) && length(yRange) == 2L)
   )
@@ -743,6 +835,8 @@ lineFocusChart <- function(
     "legendPosition"          = legendPosition,
     "interpolate"             = interpolate,
     "xRange"                  = xRange,
+    "x1"                      = x1,
+    "x2"                      = x2,
     "yRange"                  = yRange,
     "rightAlignYaxis"         = rightAlignYaxis,
     "tooltipFormatters"       = tooltipFormatters

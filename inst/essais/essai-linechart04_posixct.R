@@ -14,5 +14,5 @@ dat <- list(dat1, dat2)
 lineChart(
   dat,
   margins = list(t = 100, r = 100, b = 100, l = 100),
-  xAxisTickFormat = "%M:%S"
+  xAxisTickFormat = "%H:%M:%S"
 )
