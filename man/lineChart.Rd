@@ -66,8 +66,8 @@ y-axis}
 \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
 \code{"monotone"}}
 
-\item{xRange}{the x-axis range, a numeric vector of length 2, or
-\code{NULL} to derive it from the data}
+\item{xRange}{the x-axis range, a length two vector of the same type as the
+x-values, or \code{NULL} to derive it from the data}
 
 \item{yRange}{the y-axis range, a numeric vector of length 2, or
 \code{NULL} to derive it from the data}

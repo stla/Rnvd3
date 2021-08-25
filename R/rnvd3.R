@@ -428,8 +428,8 @@ hMultiBarChart <- function(
 #'   \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
 #'   \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
 #'   \code{"monotone"}
-#' @param xRange the x-axis range, a numeric vector of length 2, or
-#'   \code{NULL} to derive it from the data
+#' @param xRange the x-axis range, a length two vector of the same type as the
+#'   x-values, or \code{NULL} to derive it from the data
 #' @param yRange the y-axis range, a numeric vector of length 2, or
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
@@ -663,8 +663,8 @@ lineChart <- function(
 #'   \code{"basis-open"}, \code{"basis-closed"}, \code{"bundle"},
 #'   \code{"cardinal"}, \code{"cardinal-open"}, \code{"cardinal-closed"},
 #'   \code{"monotone"}
-#' @param xRange the x-axis range, a numeric vector of length 2, or
-#'   \code{NULL} to derive it from the data
+#' @param xRange the x-axis range, a length two vector of the same type as the
+#'   x-values, or \code{NULL} to derive it from the data
 #' @param yRange the y-axis range, a numeric vector of length 2, or
 #'   \code{NULL} to derive it from the data
 #' @param rightAlignYaxis Boolean, whether to put the y-axis on the right side
