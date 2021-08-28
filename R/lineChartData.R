@@ -1,16 +1,31 @@
 #' @title Line chart data
 #' @description Make line chart data.
 #'
-#' @param x values on the x-axis, numeric or date type
-#' @param y values on the y-axis
+#' @param x a right-sided formula giving the variable on the x-axis, numeric or
+#'   date type
+#' @param y a right-sided formula giving the variable on the x-axis, numeric
+#'   type
+#' @param data dataframe containing the data for the chart; if not \code{NULL},
+#'   the variables passed to \code{x} and \code{y} are searched among the
+#'   columns of \code{data}
 #' @param key string, the title of the line chart
-#' @param color line chart color
+#' @param color string, the color of the line chart
 #' @param area Boolean, whether to turn the line chart into a filled area chart
 #'
 #' @return A list, for usage in \code{\link{lineChart}}.
+#'
+#' @note The color can be given by the name of a R color, the name of a CSS
+#'   color, e.g. \code{"lime"} or \code{"fuchsia"}, an HEX code like
+#'   \code{"#ff009a"}, a RGB code like \code{"rgb(255,100,39)"}, or a HSL code
+#'   like \code{"hsl(360,11,255)"}.
 #' @importFrom lubridate is.Date is.POSIXct year month day hour minute second
+#' @importFrom lazyeval f_eval_rhs is_formula
 #' @export
-lineChartData <- function(x, y, key, color, area = FALSE){
+lineChartData <- function(x, y, data = NULL, key, color, area = FALSE){
+  stopifnot(is_formula(x))
+  stopifnot(is_formula(y))
+  x <- f_eval_rhs(x, data = data)
+  y <- f_eval_rhs(y, data = data)
   stopifnot(is.numeric(x) || is.Date(x) || is.POSIXct(x))
   stopifnot(is.numeric(y))
   stopifnot(length(x) == length(y))

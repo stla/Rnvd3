@@ -4,16 +4,22 @@
 \alias{lineChartData}
 \title{Line chart data}
 \usage{
-lineChartData(x, y, key, color, area = FALSE)
+lineChartData(x, y, data = NULL, key, color, area = FALSE)
 }
 \arguments{
-\item{x}{values on the x-axis, numeric or date type}
+\item{x}{a right-sided formula giving the variable on the x-axis, numeric or
+date type}
 
-\item{y}{values on the y-axis}
+\item{y}{a right-sided formula giving the variable on the x-axis, numeric
+type}
+
+\item{data}{dataframe containing the data for the chart; if not \code{NULL},
+the variables passed to \code{x} and \code{y} are searched among the
+columns of \code{data}}
 
 \item{key}{string, the title of the line chart}
 
-\item{color}{line chart color}
+\item{color}{string, the color of the line chart}
 
 \item{area}{Boolean, whether to turn the line chart into a filled area chart}
 }
@@ -22,4 +28,10 @@ A list, for usage in \code{\link{lineChart}}.
 }
 \description{
 Make line chart data.
+}
+\note{
+The color can be given by the name of a R color, the name of a CSS
+  color, e.g. \code{"lime"} or \code{"fuchsia"}, an HEX code like
+  \code{"#ff009a"}, a RGB code like \code{"rgb(255,100,39)"}, or a HSL code
+  like \code{"hsl(360,11,255)"}.
 }
