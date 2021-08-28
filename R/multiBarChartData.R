@@ -37,21 +37,25 @@ multiBarChartData <- function(data, formula, by, palette){
   y <- as.character(f_lhs(formula))
   if(!isString(y) || y %notin% dataColumns){
     stop(
-      "Invalid formula.",
+      "Invalid formula. ",
+      if(isString(y)) sprintf("There is no column '%s' in the data.", y),
       call. = FALSE
     )
   }
   category <- as.character(f_rhs(formula))
   if(!isString(category) || category %notin% dataColumns){
     stop(
-      "Invalid formula.",
+      "Invalid formula. ",
+      if(isString(category)){
+        sprintf("There is no column '%s' in the data.", category)
+      },
       call. = FALSE
     )
   }
   check <- check_multiBarChartData(dat = data, category = category, by = by)
   if(!check){
     stop(
-      "Invalid data.",
+      "Invalid data (not aggregated).",
       call. = FALSE
     )
   }
