@@ -17,7 +17,7 @@ hMultiBarChart(
   xAxisTitleDistance = -5,
   yAxisTitleDistance = 35,
   xAxisShowMaxMin = FALSE,
-  xAxisTickFormat = "d",
+  xAxisTickFormat = ".0f",
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,

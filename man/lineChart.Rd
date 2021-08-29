@@ -11,7 +11,7 @@ lineChart(
   margins = list(l = 90),
   duration = 500,
   useInteractiveGuideline = TRUE,
-  xAxisTickFormat = "d",
+  xAxisTickFormat = ".0f",
   yAxisTickFormat = ".02f",
   xLabelsFontSize = "0.75rem",
   yLabelsFontSize = "0.75rem",

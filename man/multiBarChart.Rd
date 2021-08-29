@@ -18,7 +18,7 @@ multiBarChart(
   xAxisTitleDistance = 35,
   yAxisTitleDistance = -5,
   yAxisShowMaxMin = FALSE,
-  yAxisTickFormat = "d",
+  yAxisTickFormat = ".0f",
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   rightAlignYaxis = FALSE,
