@@ -173,7 +173,6 @@ multiBarChart(
 )
 
 # style axis titles with CSS ####
-library(htmlwidgets)
 library(htmltools)
 
 CSS <- HTML(

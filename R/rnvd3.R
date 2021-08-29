@@ -98,7 +98,6 @@
 #' )
 #'
 #' # style axis titles with CSS ####
-#' library(htmlwidgets)
 #' library(htmltools)
 #'
 #' CSS <- HTML(
@@ -251,7 +250,7 @@ multiBarChart <- function(
 #' @description HTMLwidget displaying a horizontal multibar chart.
 #'
 #' @param data dataframe containing the data used for the chart
-#' @param formula a two-sided formula like \code{x ~ y}, where \code{"x"} and
+#' @param formula a two-sided formula like \code{y ~ x}, where \code{"x"} and
 #'   \code{"y"} are two column names of \code{data}
 #' @param by string, the "by" variable; must be a column name of \code{data}
 #' @param palette this can be either the name of a viridis color palette, e.g.
@@ -298,10 +297,29 @@ multiBarChart <- function(
 #' @export
 #'
 #' @examples library(Rnvd3)
-#' dat <- reshape2::melt(
-#'   apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
+#' dat <- aggregate(breaks ~ wool + tension, data = warpbreaks, mean)
+#' levels(dat[["tension"]]) <- c("Low", "Medium", "High")
+#'
+#' hMultiBarChart(
+#'   dat, breaks ~ wool, "tension", yAxisShowMaxMin = TRUE,
+#'   yAxisTitle = "Mean of breaks", yAxisTickFormat = ".01f"
 #' )
-#' hMultiBarChart(dat, Count ~ Eye, by = "Hair")
+#'
+#' #' the axis titles are small, let's make them bigger
+#' library(htmltools)
+#' CSS <- HTML(
+#'   ".nvd3 .nv-axis.nv-x text.nv-axislabel,
+#'    .nvd3 .nv-axis.nv-y text.nv-axislabel {
+#'      font-size: 1rem;
+#'   }"
+#' )
+#' prependContent(
+#'   hMultiBarChart(
+#'     dat, breaks ~ wool, "tension", yAxisShowMaxMin = TRUE,
+#'     yAxisTitle = "Mean of breaks", yAxisTickFormat = ".01f"
+#'   ),
+#'   tags$style(CSS)
+#' )
 hMultiBarChart <- function(
   data,
   formula,
@@ -312,17 +330,16 @@ hMultiBarChart <- function(
   margins = list(b = 100, l = 100),
   duration = 1300,
   groupSpacing = 0.1,
-  xAxisTitleDistance = -5,
-  yAxisTitleDistance = 35,
-  xAxisShowMaxMin = FALSE,
-  xAxisTickFormat = ".0f",
+  xAxisTitleDistance = 25,
+  yAxisTitleDistance = -5,
+  yAxisShowMaxMin = FALSE,
+  yAxisTickFormat = ".0f",
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
   tooltipFormatters = list(value = NULL, header = NULL, key = NULL),
   tooltipTransitions = TRUE,
   tooltipShadow = TRUE,
-
   width = "100%", height = NULL, elementId = NULL
 ) {
   stopifnot(is.null(xAxisTitle) || isString(xAxisTitle))
@@ -333,8 +350,8 @@ hMultiBarChart <- function(
   stopifnot(isNumber(groupSpacing))
   stopifnot(isNumber(xAxisTitleDistance))
   stopifnot(isNumber(yAxisTitleDistance))
-  stopifnot(isBoolean(xAxisShowMaxMin))
-  stopifnot(isString(xAxisTickFormat))
+  stopifnot(isBoolean(yAxisShowMaxMin))
+  stopifnot(isString(yAxisTickFormat))
   xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
   yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
   stopifnot(isBoolean(showValues))
@@ -373,15 +390,15 @@ hMultiBarChart <- function(
   x <- list(
     "chart"                   = "horizontalmultibarchart",
     "Data"                    = mbcData,
-    "xAxisTitle"              = yAxisTitle %or% axisTitles[["x"]],
-    "yAxisTitle"              = xAxisTitle %or% axisTitles[["y"]],
+    "xAxisTitle"              = xAxisTitle %or% axisTitles[["x"]],
+    "yAxisTitle"              = yAxisTitle %or% axisTitles[["y"]],
     "margins"                 = margins,
     "duration"                = duration,
     "groupSpacing"            = groupSpacing,
     "xAxisTitleDistance"      = xAxisTitleDistance,
     "yAxisTitleDistance"      = yAxisTitleDistance,
-    "xAxisShowMaxMin"         = xAxisShowMaxMin,
-    "xAxisTickFormat"         = xAxisTickFormat,
+    "yAxisShowMaxMin"         = yAxisShowMaxMin,
+    "yAxisTickFormat"         = yAxisTickFormat,
     "xLabelsFontSize"         = xLabelsFontSize,
     "yLabelsFontSize"         = yLabelsFontSize,
     "showValues"              = showValues,

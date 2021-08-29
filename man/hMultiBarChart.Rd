@@ -14,10 +14,10 @@ hMultiBarChart(
   margins = list(b = 100, l = 100),
   duration = 1300,
   groupSpacing = 0.1,
-  xAxisTitleDistance = -5,
-  yAxisTitleDistance = 35,
-  xAxisShowMaxMin = FALSE,
-  xAxisTickFormat = ".0f",
+  xAxisTitleDistance = 25,
+  yAxisTitleDistance = -5,
+  yAxisShowMaxMin = FALSE,
+  yAxisTickFormat = ".0f",
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
@@ -32,7 +32,7 @@ hMultiBarChart(
 \arguments{
 \item{data}{dataframe containing the data used for the chart}
 
-\item{formula}{a two-sided formula like \code{x ~ y}, where \code{"x"} and
+\item{formula}{a two-sided formula like \code{y ~ x}, where \code{"x"} and
 \code{"y"} are two column names of \code{data}}
 
 \item{by}{string, the "by" variable; must be a column name of \code{data}}
@@ -65,12 +65,6 @@ x-axis and its title}
 \item{yAxisTitleDistance}{a number, controls the distance between the
 y-axis and its title}
 
-\item{xAxisShowMaxMin}{Boolean, whether to show the min and the max on
-the y-axis}
-
-\item{xAxisTickFormat}{a d3 formatting string for the y-axis; see
-\href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}}
-
 \item{xLabelsFontSize}{a CSS measure, the font size of the labels on the
 x-axis}
 
@@ -99,6 +93,12 @@ fade effect}
 \item{height}{height of the chart container, must be a valid CSS measure}
 
 \item{elementId}{an id for the chart container; commonly useless}
+
+\item{xAxisShowMaxMin}{Boolean, whether to show the min and the max on
+the y-axis}
+
+\item{xAxisTickFormat}{a d3 formatting string for the y-axis; see
+\href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}}
 }
 \value{
 A htmlwidget displaying a grouped/stacked bar chart.
@@ -108,8 +108,27 @@ HTMLwidget displaying a horizontal multibar chart.
 }
 \examples{
 library(Rnvd3)
-dat <- reshape2::melt(
-  apply(HairEyeColor, c(1, 2), sum), value.name = "Count"
+dat <- aggregate(breaks ~ wool + tension, data = warpbreaks, mean)
+levels(dat[["tension"]]) <- c("Low", "Medium", "High")
+
+hMultiBarChart(
+  dat, breaks ~ wool, "tension", yAxisShowMaxMin = TRUE,
+  yAxisTitle = "Mean of breaks", yAxisTickFormat = ".01f"
 )
-hMultiBarChart(dat, Count ~ Eye, by = "Hair")
+
+#' the axis titles are small, let's make them bigger
+library(htmltools)
+CSS <- HTML(
+  ".nvd3 .nv-axis.nv-x text.nv-axislabel,
+   .nvd3 .nv-axis.nv-y text.nv-axislabel {
+     font-size: 1rem;
+  }"
+)
+prependContent(
+  hMultiBarChart(
+    dat, breaks ~ wool, "tension", yAxisShowMaxMin = TRUE,
+    yAxisTitle = "Mean of breaks", yAxisTickFormat = ".01f"
+  ),
+  tags$style(CSS)
+)
 }

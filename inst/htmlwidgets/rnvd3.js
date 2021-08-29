@@ -33,7 +33,7 @@ HTMLWidgets.widget({
         }
 
         if (x.chart === "multibarchart") {
-          /* -------- multibarchart -------- */
+          /* ------------------------ multibarchart ------------------------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarChart()
@@ -117,7 +117,7 @@ HTMLWidgets.widget({
             return chart;
           });
         } else if (x.chart === "horizontalmultibarchart") {
-          /* hmultibarcart */
+          /* ------------------------ hmultibarcart ------------------------- */
           nv.addGraph(function () {
             var chart = nv.models
               .multiBarHorizontalChart()
@@ -154,15 +154,15 @@ HTMLWidgets.widget({
 
             chart.xAxis
               .axisLabel(x.xAxisTitle)
-              .axisLabelDistance(x.yAxisTitleDistance)
-              .fontSize(x.yLabelsFontSize);
+              .axisLabelDistance(x.xAxisTitleDistance)
+              .fontSize(x.xLabelsFontSize);
 
             chart.yAxis
               .axisLabel(x.yAxisTitle)
-              .axisLabelDistance(x.xAxisTitleDistance)
-              .fontSize(x.xLabelsFontSize)
-              .showMaxMin(x.xAxisShowMaxMin)
-              .tickFormat(d3.format(x.xAxisTickFormat));
+              .axisLabelDistance(x.yAxisTitleDistance)
+              .fontSize(x.yLabelsFontSize)
+              .showMaxMin(x.yAxisShowMaxMin)
+              .tickFormat(d3.format(x.yAxisTickFormat));
 
             d3.select(el.firstElementChild).datum(Data).call(chart);
 
