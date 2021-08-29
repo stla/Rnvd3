@@ -116,7 +116,7 @@ hMultiBarChart(
   yAxisTitle = "Mean of breaks", yAxisTickFormat = ".01f"
 )
 
-#' the axis titles are small, let's make them bigger
+# the axis titles are small, let's make them bigger
 library(htmltools)
 CSS <- HTML(
   ".nvd3 .nv-axis.nv-x text.nv-axislabel,
