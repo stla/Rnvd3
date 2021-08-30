@@ -273,10 +273,11 @@ multiBarChart <- function(
 #'   x-axis and its title
 #' @param yAxisTitleDistance a number, controls the distance between the
 #'   y-axis and its title
-#' @param xAxisShowMaxMin Boolean, whether to show the min and the max on
+#' @param yAxisShowMaxMin Boolean, whether to show the min and the max on
 #'   the y-axis
-#' @param xAxisTickFormat a d3 formatting string for the y-axis; see
+#' @param yAxisTickFormat a d3 formatting string for the y-axis; see
 #'   \href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}
+#' @param nticks integer, the number of ticks on the y-axis
 #' @param xLabelsFontSize a CSS measure, the font size of the labels on the
 #'   x-axis
 #' @param yLabelsFontSize a CSS measure, the font size of the labels on the
@@ -334,6 +335,7 @@ hMultiBarChart <- function(
   yAxisTitleDistance = -5,
   yAxisShowMaxMin = FALSE,
   yAxisTickFormat = ".0f",
+  nticks = 5,
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
@@ -352,6 +354,7 @@ hMultiBarChart <- function(
   stopifnot(isNumber(yAxisTitleDistance))
   stopifnot(isBoolean(yAxisShowMaxMin))
   stopifnot(isString(yAxisTickFormat))
+  stopifnot(isPositiveInteger(nticks))
   xLabelsFontSize <- validateCssUnit(xLabelsFontSize)
   yLabelsFontSize <- validateCssUnit(yLabelsFontSize)
   stopifnot(isBoolean(showValues))
@@ -399,6 +402,7 @@ hMultiBarChart <- function(
     "yAxisTitleDistance"      = yAxisTitleDistance,
     "yAxisShowMaxMin"         = yAxisShowMaxMin,
     "yAxisTickFormat"         = yAxisTickFormat,
+    "nticks"                  = nticks,
     "xLabelsFontSize"         = xLabelsFontSize,
     "yLabelsFontSize"         = yLabelsFontSize,
     "showValues"              = showValues,

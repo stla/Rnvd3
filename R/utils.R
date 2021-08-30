@@ -22,6 +22,10 @@ isNumber <- function(x){
   is.numeric(x) && (length(x) == 1L) && !is.na(x)
 }
 
+isPositiveInteger <- function(x){
+  is.numeric(x) && (length(x) == 1L) && (floor(x) == x)
+}
+
 isNamedList <- function(x){
   is.list(x) && !is.null(names(x)) && all(names(x) != "")
 }

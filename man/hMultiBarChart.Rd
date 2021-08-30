@@ -18,6 +18,7 @@ hMultiBarChart(
   yAxisTitleDistance = -5,
   yAxisShowMaxMin = FALSE,
   yAxisTickFormat = ".0f",
+  nticks = 5,
   xLabelsFontSize = "1rem",
   yLabelsFontSize = "1rem",
   showValues = FALSE,
@@ -65,6 +66,14 @@ x-axis and its title}
 \item{yAxisTitleDistance}{a number, controls the distance between the
 y-axis and its title}
 
+\item{yAxisShowMaxMin}{Boolean, whether to show the min and the max on
+the y-axis}
+
+\item{yAxisTickFormat}{a d3 formatting string for the y-axis; see
+\href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}}
+
+\item{nticks}{integer, the number of ticks on the y-axis}
+
 \item{xLabelsFontSize}{a CSS measure, the font size of the labels on the
 x-axis}
 
@@ -93,12 +102,6 @@ fade effect}
 \item{height}{height of the chart container, must be a valid CSS measure}
 
 \item{elementId}{an id for the chart container; commonly useless}
-
-\item{xAxisShowMaxMin}{Boolean, whether to show the min and the max on
-the y-axis}
-
-\item{xAxisTickFormat}{a d3 formatting string for the y-axis; see
-\href{https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/#d3_format}{d3.format}}
 }
 \value{
 A htmlwidget displaying a grouped/stacked bar chart.

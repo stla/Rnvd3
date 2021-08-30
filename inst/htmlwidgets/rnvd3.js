@@ -162,7 +162,8 @@ HTMLWidgets.widget({
               .axisLabelDistance(x.yAxisTitleDistance)
               .fontSize(x.yLabelsFontSize)
               .showMaxMin(x.yAxisShowMaxMin)
-              .tickFormat(d3.format(x.yAxisTickFormat));
+              .tickFormat(d3.format(x.yAxisTickFormat))
+              .ticks(x.nticks);
 
             d3.select(el.firstElementChild).datum(Data).call(chart);
 
