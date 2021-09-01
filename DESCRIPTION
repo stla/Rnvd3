@@ -7,7 +7,7 @@ Authors@R: c(
     person("Novus Partners, Inc.", role = "cph", comment = "'nvd3.js' library"),
     person("Michael", "Bostock", role = "cph", comment = "'d3.js' library")
   )
-Maintainer: Stéphane laurent <laurent_step@outlook.fr>
+Maintainer: Stéphane Laurent <laurent_step@outlook.fr>
 Description: Creates JavaScript charts with the 'nvd3' library. So far only the multibar chart, the horizontal multibar chart, the line chart and the line chart with focus are available.
 License: GPL-3
 Encoding: UTF-8

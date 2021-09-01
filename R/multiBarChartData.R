@@ -1,18 +1,20 @@
-#' @import data.table
+#' @importFrom data.table as.data.table
 #' @noRd
 check_multiBarChartData <- function(dat, category, by){
   dat0 <- dat[, c(category, by)]
   DT0 <- as.data.table(dat0)
   DT1 <- DT0[, list("count" = .N), by = c(category, by)][, c(1L,2L)]
   isTRUE(
-    all.equal(DT0, DT1, ignore.row.order = TRUE, check.attributes = FALSE)
+    all.equal(
+      DT0, DT1, ignore.row.order = TRUE, check.attributes = FALSE
+    )
   )
 }
 
 #' @importFrom lazyeval is_formula f_lhs f_rhs
 #' @importFrom viridisLite viridis
 #' @importFrom jsonlite toJSON
-#' @import data.table
+#' @importFrom data.table as.data.table `:=` data.table
 #' @noRd
 multiBarChartData <- function(data, formula, by, palette){
   viridisPalette <- FALSE
@@ -28,7 +30,7 @@ multiBarChartData <- function(data, formula, by, palette){
   }else if(is.character(palette)){
     colors <- vapply(palette, validateColor, character(1L))
   }else if(!is.function(palette)){
-    stop("Invalide 'palette' argument.", call. = FALSE)
+    stop("Invalid 'palette' argument.", call. = FALSE)
   }
   stopifnot(is.data.frame(data))
   stopifnot(is_formula(formula))
