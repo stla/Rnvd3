@@ -14,7 +14,7 @@ check_multiBarChartData <- function(dat, category, by){
 #' @importFrom lazyeval is_formula f_lhs f_rhs
 #' @importFrom viridisLite viridis
 #' @importFrom jsonlite toJSON
-#' @importFrom data.table as.data.table `:=` data.table
+#' @importFrom data.table as.data.table `:=` data.table .N
 #' @noRd
 multiBarChartData <- function(data, formula, by, palette){
   viridisPalette <- FALSE
