@@ -1,7 +1,7 @@
 Package: Rnvd3
 Type: Package
 Title: An Incomplete Wrapper of the 'nvd3' JavaScript Library
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person("Stéphane", "Laurent", email = "laurent_step@outlook.fr", role = c("aut", "cre")),
     person("Novus Partners, Inc.", role = "cph", comment = "'nvd3.js' library"),

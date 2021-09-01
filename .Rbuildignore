@@ -6,3 +6,4 @@
 ^\.github$
 ^man-roxygen$
 ^inst/ztemp$
+^cran-comments\.md$
